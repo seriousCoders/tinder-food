@@ -1,21 +1,31 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import axios from 'axios'
+import logo from './logo.svg'
+import './App.css'
 
 class App extends Component {
   state = {
-    response: '',
-  };
+    response: ''
+  }
 
   componentDidMount() {
-    this.callApi();
+    this.callApi()
   }
 
   callApi = async () => {
-    const { data } = await axios('/api/hello');
-    console.log(data);
-  };
+    const { data } = await axios('/api/hello')
+    console.log(data)
+  }
+
+  facebookLogin = async () => {
+    const { data } = await axios({
+      method: 'get',
+      url: 'http://localhost:3000/auth/',
+      withCredentials: true
+    })
+    console.log(data)
+  }
+
   render() {
     return (
       <div className="App">
@@ -23,12 +33,12 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <button type="button" onClick={this.facebookLogin}>
+          Facebook
+        </button>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
