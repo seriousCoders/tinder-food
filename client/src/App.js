@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  state = {
+    response: '',
+  };
+
+  componentDidMount() {
+    this.callApi();
+  }
+
+  callApi = async () => {
+    const { data } = await axios('/api/hello');
+    console.log(data);
+  };
   render() {
     return (
       <div className="App">
