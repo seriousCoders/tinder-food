@@ -4,10 +4,13 @@
   "scripts": {
     "client": "cd client && npm start",
     "server": "nodemon server",
-    "start-dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "start-dev": "NODE_ENV='development' concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "sequelize": "^4.37.10"
   },
   "devDependencies": {
     "concurrently": "^3.5.0"
