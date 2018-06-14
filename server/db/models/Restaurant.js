@@ -5,13 +5,13 @@ const Restaurant = db.define('restaurant', {
   name: Sequelize.STRING,
   imageUrl: Sequelize.STRING,
   yelpId: {
-    type: Sequlize.STRING,
+    type: Sequelize.STRING,
     allowNull: false
   },
   latitude: Sequelize.FLOAT,
-  longitude: sequelize.FLOAT,
+  longitude: Sequelize.FLOAT,
   address: Sequelize.JSON,
-  price: Seqeulize.STRING
+  price: Sequelize.STRING
 })
 
 module.exports = Restaurant
