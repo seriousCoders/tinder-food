@@ -1,5 +1,4 @@
 const express = require('express')
-const path = require('path')
 const volleyball = require('volleyball')
 const bodyParser = require('body-parser')
 const passport = require('passport')
@@ -23,6 +22,7 @@ passport.deserializeUser((id, done) => {
 app.use(volleyball)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET || 'diet coke',

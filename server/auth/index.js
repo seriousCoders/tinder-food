@@ -1,5 +1,6 @@
 const passport = require('passport')
 const router = require('express').Router()
+const cors = require('cors')
 const FacebookStrategy = require('passport-facebook').Strategy
 const { User } = require('../db/models')
 module.exports = router
@@ -18,13 +19,15 @@ if (!process.env.FACEBOOK_APP_ID || !process.env.FACEBOOK_APP_SECRET) {
       try {
         const info = {
           facebookId: profile.id,
-          name: profile.first_name,
-          imageUrl: profile.picture
+          name: profile.displayName,
+          imageUrl: profile.profileUrl
         }
-        await User.findOrCreate({
+        console.log('PROFILE', profile)
+        const user = await User.findOrCreate({
           where: { facebookId: info.facebookId },
           defaults: info
-        }).spread(user => done(null, user))
+        })
+        done(null, user[0])
       } catch (err) {
         done()
       }
@@ -34,13 +37,15 @@ if (!process.env.FACEBOOK_APP_ID || !process.env.FACEBOOK_APP_SECRET) {
 
   router.get(
     '/',
+    cors(),
     passport.authenticate('facebook', { scope: 'public_profile' })
   )
 
   router.get(
     '/callback',
+    cors(),
     passport.authenticate('facebook', {
-      successRedirect: '/',
+      successRedirect: 'http://localhost:3000',
       failureRedirect: '/failLogin'
     })
   )

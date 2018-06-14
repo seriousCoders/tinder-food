@@ -17,15 +17,6 @@ class App extends Component {
     console.log(data)
   }
 
-  facebookLogin = async () => {
-    const { data } = await axios({
-      method: 'get',
-      url: 'http://localhost:5000/auth/',
-      withCredentials: true
-    })
-    console.log(data)
-  }
-
   render() {
     return (
       <div className="App">
@@ -33,9 +24,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <button type="button" onClick={this.facebookLogin}>
-          Facebook
-        </button>
+        <a href="http://localhost:5000/auth/">Facebook</a>
       </div>
     )
   }
