@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "concurrently": "^3.5.0",
-    "volleyball": "^1.5.1"
+    "volleyball": "^1.5.1",
+    "yelp-fusion": "^2.0.3"
   }
 }
