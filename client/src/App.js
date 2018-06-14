@@ -20,7 +20,7 @@ class App extends Component {
   facebookLogin = async () => {
     const { data } = await axios({
       method: 'get',
-      url: 'http://localhost:3000/auth/',
+      url: 'http://localhost:5000/auth/',
       withCredentials: true
     })
     console.log(data)
