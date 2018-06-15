@@ -22,11 +22,31 @@ class App extends Component {
 
   testYelp = async () => {
     const { latitude, longitude } = this.props.coords
-    console.log('latitude', latitude)
     const { data } = await axios.get(
       `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}`
     )
-    console.log(data)
+
+    const businesses = data.jsonBody.businesses
+    console.log(businesses)
+
+    const delay = func => (time, ...args) =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(func(...args))
+        }, time)
+      })
+
+    const resturants = []
+    const delayedAxios = delay(axios.get.bind(axios))
+    let i = 0
+    while (i < businesses.length) {
+      const rest = await delayedAxios(2, `/api/yelp/${businesses[i].id}`)
+      i++
+      console.log('inside the while loop', rest.data)
+      resturants.push(rest.data)
+    }
+
+    console.log(resturants)
   }
 
   testLogin = async () => {
