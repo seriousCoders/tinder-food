@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { geolocated } from 'react-geolocated'
 import axios from 'axios'
 import logo from './logo.svg'
 import './App.css'
@@ -18,13 +19,22 @@ class App extends Component {
   }
 
   testYelp = async () => {
-    const { data } = await axios.get('/api/yelp/nearby')
+    const { latitude, longitude } = this.props.coords
+    console.log('latitude', latitude)
+    const { data } = await axios.get('/api/yelp/nearby', {
+      latitude,
+      longitude
+    })
     console.log(data)
   }
 
   testLogin = async () => {
     const { data } = await axios.get('/auth/me')
     console.log(data)
+  }
+
+  test = () => {
+    console.log(this.props.coords.latitude)
   }
 
   render() {
@@ -41,9 +51,16 @@ class App extends Component {
         <button type="button" onClick={this.testLogin}>
           GET USER
         </button>
+        <button type="button" onClick={this.test}>
+          GET LOCATION
+        </button>
       </div>
     )
   }
 }
 
-export default App
+export default geolocated({
+  positionOptions: { enableHighAccuracy: true },
+  watchPosition: true,
+  userDecisionTimeout: 5000
+})(App)
