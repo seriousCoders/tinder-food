@@ -6,8 +6,7 @@ const client = yelp.client(process.env.YELP_APP_ID)
 
 router.get('/nearby', async (req, res, next) => {
   try {
-    const { latitude, longitude } = req.body
-    console.log(req.body)
+    const { latitude, longitude } = req.query
     const testData = await client.search({
       term: 'restaurants',
       latitude,
