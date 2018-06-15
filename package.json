@@ -17,6 +17,7 @@
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
     "react-redux": "^5.0.7",
+    "react-swipeable-views": "^0.12.13",
     "sequelize": "^4.37.10"
   },
   "devDependencies": {

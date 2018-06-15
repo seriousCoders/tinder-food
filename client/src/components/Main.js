@@ -12,18 +12,7 @@ class Main extends Component {
     this.props.loadInitialData()
   }
   render() {
-    return (
-      <div>
-        {this.props.isLoggedIn ? (
-          <div>
-            <Navbar />
-            <Routes />
-          </div>
-        ) : (
-          <Login />
-        )}
-      </div>
-    )
+    return <div>{this.props.isLoggedIn ? <Routes /> : <Login />}</div>
   }
 }
 const mapStateToProps = state => ({
