@@ -44,8 +44,8 @@ if (!process.env.FACEBOOK_APP_ID || !process.env.FACEBOOK_APP_SECRET) {
     '/callback',
     cors(),
     passport.authenticate('facebook', {
-      successRedirect: 'http://localhost:3000',
-      failureRedirect: '/failLogin'
+      successRedirect: process.env.REDIRECT_URL,
+      failureRedirect: process.env.FAILREDIRECT_URL
     })
   )
 }
