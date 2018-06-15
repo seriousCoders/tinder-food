@@ -5,7 +5,7 @@ module.exports = router
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    const user = User.findOne({
+    const user = await User.findOne({
       where: { id: req.params.userId },
       include: [
         {

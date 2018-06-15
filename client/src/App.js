@@ -18,7 +18,7 @@ class App extends Component {
   }
 
   testYelp = async () => {
-    const { data } = await axios.get('/api/nearby')
+    const { data } = await axios.get('/api/yelp/nearby')
     console.log(data)
   }
 
