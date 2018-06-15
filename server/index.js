@@ -45,10 +45,6 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000
 
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' })
-})
-
 app.listen(PORT, async () => {
   await db.sync()
   console.log('DB synced!')

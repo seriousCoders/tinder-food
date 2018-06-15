@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import yelp from 'yelp-fusion'
 import logo from './logo.svg'
 import './App.css'
-
-const yelpApi =
-  'wNG3fAxlbCNEAQDtAA7Bj2uB1Ffq-RXhllwh3kj3sYAnY1p8Yt6_uTpmsH6074cdclag-wbeaiwaDkJpD_7jq0cg0hE6wBGN903-R2XK1utJQls5nM35Qs2zfeUiW3Yx'
-const client = yelp.client(yelpApi)
 
 class App extends Component {
   state = {
@@ -18,20 +13,17 @@ class App extends Component {
   }
 
   callApi = async () => {
-    const { data } = await axios('/api/hello')
+    const { data } = await axios.get('/api/user')
     console.log(data)
   }
 
   testYelp = async () => {
-    // const testData = await client.search({
-    //   term: 'restaurants',
-    //   latitude: 40.705086,
-    //   longitude: -74.009151,
-    //   radius: 1600,
-    //   open_now: true,
-    //   sort_by: 'rating'
-    // })
-    const { data } = await axios('/api/nearby')
+    const { data } = await axios.get('/api/nearby')
+    console.log(data)
+  }
+
+  testLogin = async () => {
+    const { data } = await axios.get('/auth/me')
     console.log(data)
   }
 
@@ -45,6 +37,9 @@ class App extends Component {
         <a href="http://localhost:5000/auth/">Facebook</a>
         <button type="button" onClick={this.testYelp}>
           GET BUSINESSES
+        </button>
+        <button type="button" onClick={this.testLogin}>
+          GET USER
         </button>
       </div>
     )
