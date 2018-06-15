@@ -48,7 +48,7 @@ class Routes extends Component {
   }
 }
 
-function TabContainer({ children, dir }) {
+const TabContainer = ({ children, dir }) => {
   return (
     <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
       {children}
