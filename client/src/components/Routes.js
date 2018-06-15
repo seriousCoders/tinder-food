@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 
 import TabBar from './TabBar'
 import User from './User'
+import Favourites from './Favourites'
 
 const styles = theme => ({
   root: {
@@ -41,7 +42,9 @@ class Routes extends Component {
             <User />
           </TabContainer>
           <TabContainer dir={theme.direction}>Item Two</TabContainer>
-          <TabContainer dir={theme.direction}>Item Three</TabContainer>
+          <TabContainer dir={theme.direction}>
+            <Favourites />
+          </TabContainer>
         </SwipeableViews>
       </div>
     )

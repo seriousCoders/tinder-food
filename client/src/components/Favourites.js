@@ -1,12 +1,51 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { withStyles } from '@material-ui/core/styles'
+
+import OneFavourite from './OneFavourite'
+import restaurants from './DummyData'
+
+const styles = theme => ({
+  root: {
+    width: '85wh'
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '33.33%',
+    flexShrink: 0
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary
+  }
+})
 
 class Favourites extends Component {
+  state = {
+    expanded: null
+  }
+  handleChange = panel => (event, expanded) => {
+    this.setState({
+      expanded: expanded ? panel : false
+    })
+  }
   render() {
+    const { classes } = this.props
+    const { expanded } = this.state
+
     return (
-      <button type="button" onClick={this.props.logout}>
-        Logout
-      </button>
+      <div className={classes.root}>
+        {restaurants.map(restaurant => (
+          <OneFavourite
+            handleChange={this.handleChange}
+            heading={classes.heading}
+            expanded={expanded}
+            panel={`panel${restaurant.id}`}
+            key={restaurant.id}
+            restaurant={restaurant}
+          />
+        ))}
+      </div>
     )
   }
 }
@@ -17,12 +56,12 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  logout() {
-    dispatch(logout())
-  }
+  // logout() {
+  //   dispatch(logout())
+  // }
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Favourites)
+)(withStyles(styles)(Favourites))
