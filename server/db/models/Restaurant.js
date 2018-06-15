@@ -11,7 +11,8 @@ const Restaurant = db.define('restaurant', {
   latitude: Sequelize.FLOAT,
   longitude: Sequelize.FLOAT,
   address: Sequelize.JSON,
-  price: Sequelize.STRING
+  price: Sequelize.STRING,
+  photos: Sequelize.ARRAY(Sequelize.STRING)
 })
 
 module.exports = Restaurant

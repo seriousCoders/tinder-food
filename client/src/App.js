@@ -20,36 +20,58 @@ class App extends Component {
     console.log(data)
   }
 
-  testYelp = async () => {
+  getBusinesses = async () => {
     const { latitude, longitude } = this.props.coords
     const { data } = await axios.get(
       `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}`
     )
     const businesses = data.jsonBody.businesses
     console.log(businesses)
+    return businesses
+  }
 
-    const delay = func => (time, ...args) =>
-      new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(func(...args))
-        }, time)
-      })
+  delay = func => (time, ...args) =>
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(func(...args))
+      }, time)
+    })
 
-    const resturants = []
-    const delayedAxios = delay(axios.get.bind(axios))
+  getResturants = async (businesses, func, time) => {
+    const output = []
     let i = 0
     while (i < businesses.length) {
-      const rest = await delayedAxios(2, `/api/yelp/${businesses[i].id}`)
+      const rest = await func(time, `/api/yelp/${businesses[i].id}`)
       i++
       console.log('inside the while loop', rest.data)
-      resturants.push(rest.data)
+      const {
+        id,
+        name,
+        image_url,
+        location,
+        coordinates,
+        price,
+        photos
+      } = rest.data.jsonBody
+      output.push({
+        yelpId: id,
+        name,
+        imageUrl: image_url,
+        latitude: coordinates.latitude,
+        longitude: coordinates.longitude,
+        address: JSON.stringify(location),
+        price,
+        photos
+      })
     }
+    return output
+  }
 
+  testYelp = async () => {
+    const businesses = await this.getBusinesses()
+    const delayedAxios = this.delay(axios.get.bind(axios))
+    const resturants = await this.getResturants(businesses, delayedAxios, 2)
     console.log(resturants)
-
-    // const response = await axios.get(`/api/yelp/${businesses[0].id}`)
-    // console.log(response.data)
-    // console.log(array)
   }
 
   testLogin = async () => {
