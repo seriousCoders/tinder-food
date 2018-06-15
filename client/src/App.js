@@ -6,7 +6,8 @@ import './App.css'
 
 class App extends Component {
   state = {
-    response: ''
+    gotUser: false,
+    picture: ''
   }
 
   componentDidMount() {
@@ -31,6 +32,7 @@ class App extends Component {
   testLogin = async () => {
     const { data } = await axios.get('/auth/me')
     console.log(data)
+    this.setState({ gotUser: true, picture: data.imageUrl })
   }
 
   test = () => {
@@ -54,6 +56,7 @@ class App extends Component {
         <button type="button" onClick={this.test}>
           GET LOCATION
         </button>
+        <div>{this.state.gotUser ? <img src={this.state.picture} /> : ''}</div>
       </div>
     )
   }

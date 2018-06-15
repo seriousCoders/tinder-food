@@ -20,7 +20,7 @@ if (!process.env.FACEBOOK_APP_ID || !process.env.FACEBOOK_APP_SECRET) {
         const info = {
           facebookId: profile.id,
           name: profile.displayName,
-          imageUrl: profile.profileUrl
+          imageUrl: `http://graph.facebook.com/${profile.id}/picture?type=large`
         }
         console.log('PROFILE', profile)
         await User.findOrCreate({
