@@ -15,6 +15,9 @@ const OneFavourite = ({
   panel,
   restaurant
 }) => {
+  const url = `https://www.google.com/maps/search/?api=1&query=${
+    restaurant.latitude
+  },${restaurant.longitude}`
   return (
     <ExpansionPanel
       expanded={expanded === panel}
@@ -29,7 +32,7 @@ const OneFavourite = ({
       <Divider />
       <ExpansionPanelActions>
         <Button size="small">Remove</Button>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" href={url}>
           Go
         </Button>
       </ExpansionPanelActions>

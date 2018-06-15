@@ -13,7 +13,8 @@ const styles = theme => ({
     margin: 0
   },
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    marginBottom: '2em'
   },
   display2: {
     fontWeight: 'bold',
@@ -23,7 +24,8 @@ const styles = theme => ({
     lineHeight: '1.06667em'
   },
   colorPrimary: {
-    color: 'white'
+    color: 'white',
+    marginBottom: '1em'
   }
 })
 

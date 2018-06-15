@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-// import { Navbar, Login, Routes } from './components/index'
-import Navbar from './Navbar'
 import Login from './Login'
 import Routes from './Routes'
 import { me } from '../store/user'
