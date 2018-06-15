@@ -23,11 +23,10 @@ if (!process.env.FACEBOOK_APP_ID || !process.env.FACEBOOK_APP_SECRET) {
           imageUrl: profile.profileUrl
         }
         console.log('PROFILE', profile)
-        const user = await User.findOrCreate({
+        await User.findOrCreate({
           where: { facebookId: info.facebookId },
           defaults: info
-        })
-        done(null, user[0])
+        }).spread(user => done(null, user))
       } catch (err) {
         done()
       }
