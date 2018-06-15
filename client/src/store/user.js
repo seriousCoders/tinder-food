@@ -1,5 +1,5 @@
 import axios from 'axios'
-import history from '../history'
+// import history from '../history'
 
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
@@ -23,7 +23,7 @@ export const logout = () => dispatch =>
     .post('/auth/logout')
     .then(_ => {
       dispatch(removeUser())
-      history.push('/')
+      // history.push('/')
     })
     .catch(err => console.log(err))
 

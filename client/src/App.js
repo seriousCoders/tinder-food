@@ -3,6 +3,7 @@ import { geolocated } from 'react-geolocated'
 import axios from 'axios'
 import logo from './logo.svg'
 import './App.css'
+import { Main } from './components'
 
 class App extends Component {
   state = {
@@ -43,29 +44,30 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <a href="http://localhost:5000/auth/">Facebook</a>
-        <button type="button" onClick={this.testYelp}>
-          GET BUSINESSES
-        </button>
-        <button type="button" onClick={this.testLogin}>
-          GET USER
-        </button>
-        <button type="button" onClick={this.test}>
-          GET LOCATION
-        </button>
-        <div>
-          {this.state.gotUser ? (
-            <img src={this.state.picture} alt="profile pic" />
-          ) : (
-            ''
-          )}
-        </div>
-      </div>
+      // <div className="App">
+      //   <header className="App-header">
+      //     <img src={logo} className="App-logo" alt="logo" />
+      //     <h1 className="App-title">Welcome to React</h1>
+      //   </header>
+      //   <a href="http://localhost:5000/auth/">Facebook</a>
+      //   <button type="button" onClick={this.testYelp}>
+      //     GET BUSINESSES
+      //   </button>
+      //   <button type="button" onClick={this.testLogin}>
+      //     GET USER
+      //   </button>
+      //   <button type="button" onClick={this.test}>
+      //     GET LOCATION
+      //   </button>
+      //   <div>
+      //     {this.state.gotUser ? (
+      //       <img src={this.state.picture} alt="profile pic" />
+      //     ) : (
+      //       ''
+      //     )}
+      //   </div>
+      // </div>
+      <Main />
     )
   }
 }

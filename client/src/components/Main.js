@@ -1,23 +1,41 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { Navbar, Login } from './components'
+// import { Navbar, Login } from './components'
+import Navbar from './Navbar'
+import Login from './Login'
+import { me } from '../store/user'
 
-const Main = () => (
-  <div>
-    {props.isLoggedIn ? (
-      <>
-        <Navbar />
-        <Routes />
-      </>
-    ) : (
-      <Login />
-    )}
-  </div>
-)
-
+class Main extends Component {
+  componentDidMount() {
+    this.props.loadInitialData()
+  }
+  render() {
+    return (
+      <div>
+        {this.props.isLoggedIn ? (
+          <div>
+            <Navbar />
+            {/* <Routes /> */}
+          </div>
+        ) : (
+          <Login />
+        )}
+      </div>
+    )
+  }
+}
 const mapStateToProps = state => ({
   isLoggedIn: !!state.user.id
 })
 
-export default connect(mapStateToProps)(Main)
+const mapDispatchToProps = dispatch => ({
+  loadInitialData() {
+    dispatch(me())
+  }
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Main)
