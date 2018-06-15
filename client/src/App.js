@@ -23,8 +23,10 @@ class App extends Component {
     const { latitude, longitude } = this.props.coords
     console.log('latitude', latitude)
     const { data } = await axios.get('/api/yelp/nearby', {
-      latitude,
-      longitude
+      data: {
+        latitude,
+        longitude
+      }
     })
     console.log(data)
   }
