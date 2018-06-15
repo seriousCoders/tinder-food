@@ -2,6 +2,7 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
+import Whatshot from '@material-ui/icons/Whatshot'
 import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
@@ -20,6 +21,9 @@ const styles = theme => ({
     fontSize: '2.8125rem',
     fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
     lineHeight: '1.06667em'
+  },
+  colorPrimary: {
+    color: 'white'
   }
 })
 
@@ -33,6 +37,7 @@ const Login = props => {
       direction="column"
       className={classes.grid}
     >
+      <Whatshot className={classes.colorPrimary} />
       <Typography className={classes.display2}>SWIPE</Typography>
       <Typography className={classes.display2}>MATCH</Typography>
       <Typography className={classes.display2} gutterBottom>
