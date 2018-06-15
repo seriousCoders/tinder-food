@@ -22,14 +22,34 @@ class App extends Component {
 
   testYelp = async () => {
     const { latitude, longitude } = this.props.coords
-    console.log('latitude', latitude)
-    const { data } = await axios.get('/api/yelp/nearby', {
-      data: {
-        latitude,
-        longitude
-      }
-    })
-    console.log(data)
+    const { data } = await axios.get(
+      `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}`
+    )
+    const businesses = data.jsonBody.businesses
+    console.log(businesses)
+
+    const delay = func => (time, ...args) =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(func(...args))
+        }, time)
+      })
+
+    const resturants = []
+    const delayedAxios = delay(axios.get.bind(axios))
+    let i = 0
+    while (i < businesses.length) {
+      const rest = await delayedAxios(2, `/api/yelp/${businesses[i].id}`)
+      i++
+      console.log('inside the while loop', rest.data)
+      resturants.push(rest.data)
+    }
+
+    console.log(resturants)
+
+    // const response = await axios.get(`/api/yelp/${businesses[0].id}`)
+    // console.log(response.data)
+    // console.log(array)
   }
 
   testLogin = async () => {
@@ -44,30 +64,30 @@ class App extends Component {
 
   render() {
     return (
-      // <div className="App">
-      //   <header className="App-header">
-      //     <img src={logo} className="App-logo" alt="logo" />
-      //     <h1 className="App-title">Welcome to React</h1>
-      //   </header>
-      //   <a href="http://localhost:5000/auth/">Facebook</a>
-      //   <button type="button" onClick={this.testYelp}>
-      //     GET BUSINESSES
-      //   </button>
-      //   <button type="button" onClick={this.testLogin}>
-      //     GET USER
-      //   </button>
-      //   <button type="button" onClick={this.test}>
-      //     GET LOCATION
-      //   </button>
-      //   <div>
-      //     {this.state.gotUser ? (
-      //       <img src={this.state.picture} alt="profile pic" />
-      //     ) : (
-      //       ''
-      //     )}
-      //   </div>
-      // </div>
-      <Main />
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to React</h1>
+        </header>
+        <a href="http://localhost:5000/auth/">Facebook</a>
+        <button type="button" onClick={this.testYelp}>
+          GET BUSINESSES
+        </button>
+        <button type="button" onClick={this.testLogin}>
+          GET USER
+        </button>
+        <button type="button" onClick={this.test}>
+          GET LOCATION
+        </button>
+        <div>
+          {this.state.gotUser ? (
+            <img src={this.state.picture} alt="profile pic" />
+          ) : (
+            ''
+          )}
+        </div>
+      </div>
+      // <Main />
     )
   }
 }
