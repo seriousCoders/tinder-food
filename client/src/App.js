@@ -11,7 +11,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.callApi()
+    // this.callApi()
   }
 
   callApi = async () => {
@@ -36,7 +36,7 @@ class App extends Component {
   }
 
   test = () => {
-    console.log(this.props.coords.latitude)
+    console.log(this.props.coords)
   }
 
   render() {
@@ -56,7 +56,13 @@ class App extends Component {
         <button type="button" onClick={this.test}>
           GET LOCATION
         </button>
-        <div>{this.state.gotUser ? <img src={this.state.picture} /> : ''}</div>
+        <div>
+          {this.state.gotUser ? (
+            <img src={this.state.picture} alt="profile pic" />
+          ) : (
+            ''
+          )}
+        </div>
       </div>
     )
   }

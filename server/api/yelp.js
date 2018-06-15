@@ -21,5 +21,14 @@ router.get('/nearby', async (req, res, next) => {
   }
 })
 
+router.get('/:businessId', async (req, res, next) => {
+  try {
+    const restaurant = await client.business(req.params.businessId)
+    res.json(restaurant)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // Fullstack coordinates
 // [-74.009151, 40.705086,]
