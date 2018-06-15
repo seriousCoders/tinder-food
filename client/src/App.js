@@ -26,6 +26,7 @@ class App extends Component {
     const { data } = await axios.get(
       `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}`
     )
+    console.log(data)
   }
 
   testLogin = async () => {
