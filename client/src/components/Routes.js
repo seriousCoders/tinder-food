@@ -20,6 +20,10 @@ class Routes extends Component {
     value: 0
   }
 
+  componentDidMount() {
+    this.props.loadInitialData()
+  }
+
   handleChange = (event, value) => {
     this.setState({ value })
   }
@@ -59,6 +63,18 @@ const TabContainer = ({ children, dir }) => {
   )
 }
 
-export default connect()(withStyles(styles, { withTheme: true })(Routes))
-// mapStateToProps,
-// mapDispatchToProps
+const mapStateToProps = state => ({
+  user: state.user,
+  restaurants: state.restaurants
+})
+
+const mapDispatchToProps = dispatch => ({
+  loadInitialData() {
+    dispatch()
+  }
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles, { withTheme: true })(Routes))
