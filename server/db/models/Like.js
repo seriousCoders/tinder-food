@@ -1,8 +1,8 @@
-const Sequelize = require('sequelize')
 const db = require('../db')
+const Sequelize = require('sequelize')
 
 const Like = db.define('like', {
-  liked: Sequelize.BOOLEAN
+  like: Sequelize.BOOLEAN
 })
 
 module.exports = Like
