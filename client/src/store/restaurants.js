@@ -41,5 +41,9 @@ export default function(state = intialState, action) {
       })
       return filtered
     }
+    default:
+      return state
   }
 }
+
+// export default restaurants
