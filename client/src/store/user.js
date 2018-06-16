@@ -4,7 +4,7 @@ import axios from 'axios'
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 
-const defaultUser = {}
+const defaultUser = { id: 1 }
 
 export const getUser = user => ({ type: GET_USER, user })
 export const removeUser = () => ({ type: REMOVE_USER })

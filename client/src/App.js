@@ -4,7 +4,7 @@ import axios from 'axios'
 import logo from './logo.svg'
 import './App.css'
 import { Main } from './components'
-import { getNearby } from './store/nearBy'
+import { getNearby, popNearByLike } from './store/nearBy'
 import { connect } from 'react-redux'
 
 class App extends Component {
@@ -28,7 +28,6 @@ class App extends Component {
       `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}`
     )
     const businesses = data.jsonBody.businesses
-    console.log(businesses)
     return businesses
   }
 
@@ -73,7 +72,6 @@ class App extends Component {
     const businesses = await this.getBusinesses()
     const delayedAxios = this.delay(axios.get.bind(axios))
     const resturants = await this.getResturants(businesses, delayedAxios, 2)
-    console.log(resturants)
   }
 
   testLogin = async () => {
@@ -86,8 +84,28 @@ class App extends Component {
     console.log(this.props.coords)
   }
 
+  handleLike = () => {
+    // Send thunks to findOrCreate a restaurant
+    // Send a thunk to add to Like table
+    this.props.popnearbyLike(
+      this.props.nearby[this.props.nearby.length - 1],
+      this.props.user.id,
+      1
+    )
+  }
+
+  handleDislike = () => {
+    this.props.popnearbyLike(
+      this.props.nearby[this.props.nearby.length - 1],
+      this.props.user.id
+    )
+  }
+
   render() {
-    console.log('this.props.nearby', this.props.nearby)
+    console.log('this.props', this.props)
+    // if (this.props.coords && !this.props.nearby.length) {
+    //   this.testYelp()
+    // }
     return (
       <div className="App">
         <header className="App-header">
@@ -104,6 +122,12 @@ class App extends Component {
         <button type="button" onClick={this.test}>
           GET LOCATION
         </button>
+        <button type="button" onClick={this.handleLike}>
+          Like
+        </button>
+        <button type="button" onClick={this.handleDislike}>
+          DISLIKE
+        </button>
         <div>
           {this.state.gotUser ? (
             <img src={this.state.picture} alt="profile pic" />
@@ -118,11 +142,14 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  state
+  user: state.user,
+  nearby: state.nearby
 })
 
 const mapDispatchToProps = dispatch => ({
-  getnearby: nearby => dispatch(getNearby(nearby))
+  getnearby: nearby => dispatch(getNearby(nearby)),
+  popnearbyLike: (restaurant, userId, isLike) =>
+    dispatch(popNearByLike(restaurant, userId, isLike))
 })
 
 export default connect(
