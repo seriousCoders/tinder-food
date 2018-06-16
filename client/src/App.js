@@ -3,7 +3,7 @@ import { geolocated } from 'react-geolocated'
 import axios from 'axios'
 import './App.css'
 import { Main } from './components'
-import { getNearby, popNearByLike } from './store/nearBy'
+import { gotNearby, popNearbyLike } from './store/nearby'
 import { connect } from 'react-redux'
 
 class App extends Component {
@@ -107,36 +107,45 @@ class App extends Component {
     //   this.testYelp()
     // }
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <a href="http://localhost:5000/auth/">Facebook</a>
-        <button type="button" onClick={this.testYelp}>
-          GET BUSINESSES
-        </button>
-        <button type="button" onClick={this.testLogin}>
-          GET USER
-        </button>
-        <button type="button" onClick={this.test}>
-          GET LOCATION
-        </button>
-        <button type="button" onClick={this.handleLike}>
-          Like
-        </button>
-        <button type="button" onClick={this.handleDislike}>
-          DISLIKE
-        </button>
-        <div>
-          {this.state.gotUser ? (
-            <img src={this.state.picture} alt="profile pic" />
-          ) : (
-            ''
-          )}
-        </div>
+      // <div className="App">
+      //   <header className="App-header">
+      //     <h1 className="App-title">Welcome to React</h1>
+      //   </header>
+      //   <a href="http://localhost:5000/auth/">Facebook</a>
+      //   <button type="button" onClick={this.testYelp}>
+      //     GET BUSINESSES
+      //   </button>
+      //   <button type="button" onClick={this.testLogin}>
+      //     GET USER
+      //   </button>
+      //   <button type="button" onClick={this.test}>
+      //     GET LOCATION
+      //   </button>
+      //   <button type="button" onClick={this.handleLike}>
+      //     Like
+      //   </button>
+      //   <button type="button" onClick={this.handleDislike}>
+      //     DISLIKE
+      //   </button>
+      //   <div>
+      //     {this.state.gotUser ? (
+      //       <img src={this.state.picture} alt="profile pic" />
+      //     ) : (
+      //       ''
+      //     )}
+      //   </div>
+      // </div>
+      <div>
+        {this.props.coords !== null ? (
+          <Main
+            location={[this.props.coords.latitude, this.props.coords.longitude]}
+          />
+        ) : (
+          <div>
+            Sorry, location services are required to be enabled to use this app.
+          </div>
+        )}
       </div>
-      // <Main />
     )
   }
 }
@@ -147,9 +156,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getnearby: nearby => dispatch(getNearby(nearby)),
+  getnearby: nearby => dispatch(gotNearby(nearby)),
   popnearbyLike: (restaurant, userId, isLike) =>
-    dispatch(popNearByLike(restaurant, userId, isLike))
+    dispatch(popNearbyLike(restaurant, userId, isLike))
 })
 
 export default connect(

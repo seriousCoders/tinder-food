@@ -8,6 +8,9 @@ import TabBar from './TabBar'
 import User from './User'
 import Favourites from './Favourites'
 
+import getRestaurants from './LoadRestaurants'
+import { gotNearby } from '../store/nearby'
+
 const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
@@ -20,8 +23,10 @@ class Routes extends Component {
     value: 0
   }
 
-  componentDidMount() {
-    this.props.loadInitialData()
+  async componentDidMount() {
+    const restaurants = await this.props.loadFromLocation(this.props.location)
+    this.props.loadInitialData(restaurants)
+    console.log(this.props)
   }
 
   handleChange = (event, value) => {
@@ -65,13 +70,15 @@ const TabContainer = ({ children, dir }) => {
 
 const mapStateToProps = state => ({
   user: state.user,
+  location: state.location,
   restaurants: state.restaurants
 })
 
 const mapDispatchToProps = dispatch => ({
-  loadInitialData() {
-    dispatch()
-  }
+  loadInitialData: restaurants => {
+    dispatch(gotNearby(restaurants))
+  },
+  loadFromLocation: location => getRestaurants(location)
 })
 
 export default connect(

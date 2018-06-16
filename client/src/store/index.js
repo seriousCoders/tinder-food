@@ -3,10 +3,11 @@ import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import user from './user'
-import restaurants from './restaurants'
-import nearby from './nearBy'
+import favourites from './restaurants'
+import restaurants from './nearby'
+import location from './location'
 
-const reducer = combineReducers({ user, restaurants, nearby })
+const reducer = combineReducers({ user, restaurants, favourites, location })
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
