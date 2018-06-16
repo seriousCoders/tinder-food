@@ -8,15 +8,12 @@ import { connect } from 'react-redux'
 import { Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
-const styles = theme => ({
+const styles = () => ({
   grid: {
     background: 'linear-gradient(180deg, #fe6b8b 30%, #ff8e53 90%)',
     height: '100vh',
     width: '100wh',
     margin: 0
-    // backgroundImage: 'url("/img/splashbg.jpg")',
-    // backgroundSize: 'cover',
-    // backgroundRepeat: 'no-repeat'
   }
 })
 class App extends Component {
