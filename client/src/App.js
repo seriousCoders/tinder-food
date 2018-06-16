@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { geolocated } from 'react-geolocated'
 import axios from 'axios'
-import logo from './logo.svg'
 import './App.css'
 import { Main } from './components'
 import { getNearby, popNearByLike } from './store/nearBy'
@@ -27,6 +26,7 @@ class App extends Component {
     const { data } = await axios.get(
       `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}`
     )
+
     const businesses = data.jsonBody.businesses
     return businesses
   }

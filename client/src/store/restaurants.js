@@ -65,7 +65,6 @@ export default function(state = intialState, action) {
     }
     case CREATED_RESTAURANT:
       return [...state, action.restaurant]
-
     default:
       return state
   }
