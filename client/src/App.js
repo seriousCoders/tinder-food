@@ -3,6 +3,8 @@ import { geolocated } from 'react-geolocated'
 import axios from 'axios'
 import './App.css'
 import { Main } from './components'
+import { getNearby, popNearByLike } from './store/nearBy'
+import { connect } from 'react-redux'
 
 class App extends Component {
   state = {
@@ -26,7 +28,6 @@ class App extends Component {
     )
 
     const businesses = data.jsonBody.businesses
-    console.log(businesses)
     return businesses
   }
 
@@ -64,14 +65,13 @@ class App extends Component {
         photos
       })
     }
-    return output
+    this.props.getnearby(output)
   }
 
   testYelp = async () => {
     const businesses = await this.getBusinesses()
     const delayedAxios = this.delay(axios.get.bind(axios))
     const resturants = await this.getResturants(businesses, delayedAxios, 2)
-    console.log(resturants)
   }
 
   testLogin = async () => {
@@ -84,38 +84,81 @@ class App extends Component {
     console.log(this.props.coords)
   }
 
+  handleLike = () => {
+    // Send thunks to findOrCreate a restaurant
+    // Send a thunk to add to Like table
+    this.props.popnearbyLike(
+      this.props.nearby[this.props.nearby.length - 1],
+      this.props.user.id,
+      1
+    )
+  }
+
+  handleDislike = () => {
+    this.props.popnearbyLike(
+      this.props.nearby[this.props.nearby.length - 1],
+      this.props.user.id
+    )
+  }
+
   render() {
+    console.log('this.props', this.props)
+    // if (this.props.coords && !this.props.nearby.length) {
+    //   this.testYelp()
+    // }
     return (
-      // <div className="App">
-      //   <header className="App-header">
-      //     <img src={logo} className="App-logo" alt="logo" />
-      //     <h1 className="App-title">Welcome to React</h1>
-      //   </header>
-      //   <a href="http://localhost:5000/auth/">Facebook</a>
-      //   <button type="button" onClick={this.testYelp}>
-      //     GET BUSINESSES
-      //   </button>
-      //   <button type="button" onClick={this.testLogin}>
-      //     GET USER
-      //   </button>
-      //   <button type="button" onClick={this.test}>
-      //     GET LOCATION
-      //   </button>
-      //   <div>
-      //     {this.state.gotUser ? (
-      //       <img src={this.state.picture} alt="profile pic" />
-      //     ) : (
-      //       ''
-      //     )}
-      //   </div>
-      // </div>
-      <Main />
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to React</h1>
+        </header>
+        <a href="http://localhost:5000/auth/">Facebook</a>
+        <button type="button" onClick={this.testYelp}>
+          GET BUSINESSES
+        </button>
+        <button type="button" onClick={this.testLogin}>
+          GET USER
+        </button>
+        <button type="button" onClick={this.test}>
+          GET LOCATION
+        </button>
+        <button type="button" onClick={this.handleLike}>
+          Like
+        </button>
+        <button type="button" onClick={this.handleDislike}>
+          DISLIKE
+        </button>
+        <div>
+          {this.state.gotUser ? (
+            <img src={this.state.picture} alt="profile pic" />
+          ) : (
+            ''
+          )}
+        </div>
+      </div>
+      // <Main />
     )
   }
 }
 
-export default geolocated({
-  positionOptions: { enableHighAccuracy: true },
-  watchPosition: true,
-  userDecisionTimeout: 5000
-})(App)
+const mapStateToProps = state => ({
+  user: state.user,
+  nearby: state.nearby
+})
+
+const mapDispatchToProps = dispatch => ({
+  getnearby: nearby => dispatch(getNearby(nearby)),
+  popnearbyLike: (restaurant, userId, isLike) =>
+    dispatch(popNearByLike(restaurant, userId, isLike))
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  geolocated({
+    positionOptions: { enableHighAccuracy: true },
+    watchPosition: true,
+    userDecisionTimeout: 5000
+  })(App)
+)
