@@ -23,7 +23,14 @@ export const logout = () => dispatch =>
     .post('/auth/logout')
     .then(_ => {
       dispatch(removeUser())
-      // history.push('/')
+    })
+    .catch(err => console.log(err))
+
+export const deleteUser = id => dispatch =>
+  axios
+    .delete(`/api/user/${id}`)
+    .then(_ => {
+      dispatch(removeUser())
     })
     .catch(err => console.log(err))
 

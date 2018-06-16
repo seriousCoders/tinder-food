@@ -6,7 +6,7 @@ import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 
 import DeleteConfirmation from './DeleteConfirmation'
-import { logout } from '../store/user'
+import { logout, deleteUser } from '../store/user'
 
 const styles = theme => ({
   button: {
@@ -47,10 +47,6 @@ class User extends Component {
     this.setState({ open: false })
   }
 
-  deleteUser = () => {
-    console.log('DELETEEEE')
-  }
-
   render() {
     const { classes, user } = this.props
     return (
@@ -72,7 +68,8 @@ class User extends Component {
         <DeleteConfirmation
           open={this.state.open}
           onClose={this.handleClose}
-          deleteUser={this.deleteUser}
+          deleteUser={this.props.deleteUser}
+          id={this.props.user.id}
         />
       </div>
     )
@@ -86,6 +83,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   logout() {
     dispatch(logout())
+  },
+  deleteUser(id) {
+    dispatch(deleteUser(id))
   }
 })
 

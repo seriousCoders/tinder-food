@@ -12,7 +12,7 @@ class DeleteConfirmation extends Component {
     this.props.onClose(this.props.value)
   }
   handleOk = () => {
-    this.props.deleteUser()
+    this.props.deleteUser(this.props.id)
     this.props.onClose()
   }
   render() {
