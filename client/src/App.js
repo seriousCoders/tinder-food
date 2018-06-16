@@ -4,6 +4,8 @@ import axios from 'axios'
 import logo from './logo.svg'
 import './App.css'
 import { Main } from './components'
+import { getNearby } from './store/nearBy'
+import { connect } from 'react-redux'
 
 class App extends Component {
   state = {
@@ -64,7 +66,7 @@ class App extends Component {
         photos
       })
     }
-    return output
+    this.props.getnearby(output)
   }
 
   testYelp = async () => {
@@ -85,6 +87,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('this.props.nearby', this.props.nearby)
     return (
       <div className="App">
         <header className="App-header">
@@ -114,8 +117,21 @@ class App extends Component {
   }
 }
 
-export default geolocated({
-  positionOptions: { enableHighAccuracy: true },
-  watchPosition: true,
-  userDecisionTimeout: 5000
-})(App)
+const mapStateToProps = state => ({
+  state
+})
+
+const mapDispatchToProps = dispatch => ({
+  getnearby: nearby => dispatch(getNearby(nearby))
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  geolocated({
+    positionOptions: { enableHighAccuracy: true },
+    watchPosition: true,
+    userDecisionTimeout: 5000
+  })(App)
+)
