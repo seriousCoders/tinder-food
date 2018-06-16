@@ -17,6 +17,9 @@ const styles = theme => ({
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit
   }
 })
 
@@ -38,7 +41,6 @@ class Favourites extends Component {
         {restaurants.map(restaurant => (
           <OneFavourite
             handleChange={this.handleChange}
-            heading={classes.heading}
             expanded={expanded}
             panel={`panel${restaurant.id}`}
             key={restaurant.id}

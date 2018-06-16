@@ -2,6 +2,7 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
+import classNames from 'classnames'
 import Whatshot from '@material-ui/icons/Whatshot'
 import Typography from '@material-ui/core/Typography'
 
@@ -14,7 +15,15 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
-    marginBottom: '2em'
+    marginBottom: '2em',
+    paddingLeft: '3em',
+    paddingRight: '3em',
+    borderRadius: '25px'
+  },
+  cssRoot: {
+    '&:hover': {
+      backgroundColor: 'lightblue'
+    }
   },
   display2: {
     fontWeight: 'bold',
@@ -48,7 +57,7 @@ const Login = props => {
       <Button
         variant="contained"
         color="primary"
-        className={classes.button}
+        className={classNames(classes.button, classes.cssRoot)}
         href="http://localhost:5000/auth/"
       >
         Log in with Facebook

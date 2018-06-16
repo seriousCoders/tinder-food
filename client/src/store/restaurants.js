@@ -45,5 +45,3 @@ export default function(state = intialState, action) {
       return state
   }
 }
-
-// export default restaurants

@@ -7,9 +7,12 @@
     "start-dev": "NODE_ENV='development' concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "dependencies": {
+    "babel-eslint": "^8.2.3",
     "body-parser": "^1.18.3",
     "connect-session-sequelize": "^5.2.1",
     "cors": "^2.8.4",
+    "eslint-config-fullstack": "^5.0.0",
+    "eslint-plugin-react": "^7.9.1",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "passport": "^0.4.0",

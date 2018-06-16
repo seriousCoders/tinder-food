@@ -15,6 +15,7 @@ const TabBar = ({ handleChange, value }) => {
         indicatorColor="primary"
         textColor="primary"
         fullWidth
+        centered
       >
         <Tab icon={<Face />} />
         <Tab icon={<Whatshot />} />

@@ -41,7 +41,7 @@ class Routes extends Component {
           <TabContainer dir={theme.direction}>
             <User />
           </TabContainer>
-          <TabContainer dir={theme.direction}>Item Two</TabContainer>
+          <TabContainer dir={theme.direction}>HII</TabContainer>
           <TabContainer dir={theme.direction}>
             <Favourites />
           </TabContainer>
