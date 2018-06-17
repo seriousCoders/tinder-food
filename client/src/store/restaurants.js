@@ -21,8 +21,7 @@ export const addFavourite = restaurant => ({
 // THUNKS
 export const getFavourites = userId => async dispatch => {
   try {
-    // This is eagerLoading from Like table
-    const { data } = await axios.get(`/api/restaurant/?id=${userId}`)
+    const { data } = await axios.get(`/api/user/${userId}`)
     dispatch(gotRestaurants(data.restaurants))
   } catch (err) {
     console.error(err)
@@ -31,7 +30,6 @@ export const getFavourites = userId => async dispatch => {
 
 export const removeFavourite = (restaurantId, userId) => async dispatch => {
   try {
-    // await axios.delete(`/api/restaurant/${restaurantId}`)
     await axios.delete('/api/like', { data: { restaurantId, userId } })
     dispatch(removedRestaurant(restaurantId))
   } catch (err) {
