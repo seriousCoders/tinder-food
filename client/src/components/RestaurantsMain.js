@@ -2,12 +2,35 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SwipeableViews from 'react-swipeable-views'
 import OneRestaurant from './OneRestaurant'
-import { popNearbyLike } from '../store/nearby'
+import { popNearbyLike, gotNearby } from '../store/nearby'
 
 import { detailedRestaurants } from './DummyData'
 import LoadingCircle from './LoadingCircle'
+import getRestaurants from './LoadRestaurants'
+import { loadData } from '../store/loading'
 
 class RestaurantsMain extends Component {
+  state = {
+    restaurants: [],
+    loading: false
+  }
+
+  static getDerivedStateFromProps(props) {
+    const { restaurants, loading } = props
+    return {
+      restaurants,
+      loading
+    }
+  }
+
+  loadingRestaurants = async () => {
+    const restaurants = await this.props.loadFromLocation(
+      this.props.location,
+      this.props.filter
+    )
+    this.props.loadDetails(restaurants)
+  }
+
   handleLike = restaurant => {
     this.props.seen(restaurant, this.props.userId, true)
   }
@@ -15,7 +38,10 @@ class RestaurantsMain extends Component {
     this.props.seen(restaurant, this.props.userId, false)
   }
   render() {
-    const { restaurants, loading } = this.props
+    const { restaurants, loading } = this.state
+    if (!loading) {
+      this.loadingRestaurants()
+    }
     return (
       <div>
         {loading ? (
@@ -45,7 +71,12 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   seen: (restaurant, userId, like) =>
-    dispatch(popNearbyLike(restaurant, userId, like))
+    dispatch(popNearbyLike(restaurant, userId, like)),
+  loadFromLocation: (location, filter) => getRestaurants(location, filter),
+  loadDetails: restaurants => {
+    dispatch(gotNearby(restaurants))
+    dispatch(loadData())
+  }
 })
 
 export default connect(
