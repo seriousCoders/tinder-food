@@ -25,7 +25,7 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const restaurant = await Restaurant.findOrCreate({
-      where: { yelpId: req.body.id },
+      where: { yelpId: req.body.yelpId },
       defaults: req.body
     }).spread(result => result)
     res.json(restaurant)
