@@ -25,6 +25,14 @@ class Routes extends Component {
   }
 
   async componentDidMount() {
+    // const restaurants = await this.props.loadFromLocation(
+    //   this.props.location,
+    //   this.props.filter
+    // )
+    // this.props.loadInitialData(restaurants)
+  }
+
+  loadingRestaurants = async () => {
     const restaurants = await this.props.loadFromLocation(
       this.props.location,
       this.props.filter
@@ -42,6 +50,9 @@ class Routes extends Component {
 
   render() {
     const { classes, theme } = this.props
+    // if (this.props.loading) {
+    //   this.loadingRestaurants()
+    // }
     return (
       <div className={classes.root}>
         <TabBar handleChange={this.handleChange} value={this.state.value} />
@@ -77,7 +88,8 @@ const mapStateToProps = state => ({
   user: state.user,
   location: state.location,
   restaurants: state.restaurants,
-  filter: state.filter
+  filter: state.filter,
+  loading: state.loading
 })
 
 const mapDispatchToProps = dispatch => ({
