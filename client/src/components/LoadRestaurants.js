@@ -26,6 +26,7 @@ const delay = func => (time, ...args) =>
   })
 
 const getDetails = async (businesses, func, time) => {
+  console.log(businesses)
   const output = []
   let i = 0
   while (i < 10) {
