@@ -25,8 +25,8 @@ class Routes extends Component {
   }
 
   async componentDidMount() {
-    // const restaurants = await this.props.loadFromLocation(this.props.location)
-    // this.props.loadInitialData(restaurants)
+    const restaurants = await this.props.loadFromLocation(this.props.location)
+    this.props.loadInitialData(restaurants)
   }
 
   handleChange = (event, value) => {
