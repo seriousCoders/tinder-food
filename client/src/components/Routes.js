@@ -8,7 +8,6 @@ import TabBar from './TabBar'
 import User from './User'
 import Favourites from './Favourites'
 import RestaurantsMain from './RestaurantsMain'
-
 import { getFavourites } from '../store/restaurants'
 
 const styles = theme => ({
@@ -32,7 +31,7 @@ class Routes extends Component {
   }
 
   handleChangeIndex = index => {
-    this.setState({ value: index })
+    this.setState({ value: index + 1 })
   }
 
   render() {

@@ -8,6 +8,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import Clear from '@material-ui/icons/Clear'
 import Typography from '@material-ui/core/Typography'
 
+import Images from './Images'
+
 const styles = {
   card: {
     margin: 0
@@ -17,6 +19,7 @@ const styles = {
     minWidth: '100%',
     display: 'flex',
     alignItems: 'flex-end',
+    justifyContent: 'space-between',
     padding: '15px'
   },
   actions: {
@@ -35,7 +38,12 @@ const OneRestaurant = props => {
   return (
     <div>
       <Card className={classes.card}>
-        <CardMedia
+        <Images
+          restaurant={restaurant}
+          media={classes.media}
+          text={classes.text}
+        />
+        {/* <CardMedia
           className={classes.media}
           image={restaurant.photos[0]}
           title={restaurant.name}
@@ -47,7 +55,7 @@ const OneRestaurant = props => {
           >
             {`${restaurant.name}, ${restaurant.price}`}
           </Typography>
-        </CardMedia>
+        </CardMedia> */}
         <CardActions className={classes.actions} disableActionSpacing>
           <IconButton
             aria-label="Get rid of this!"
