@@ -1,24 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SwipeableViews from 'react-swipeable-views'
-import { bindKeyboard } from 'react-swipeable-views-utils'
-
-import { detailedRestaurants } from './DummyData'
 import OneRestaurant from './OneRestaurant'
 import { popNearbyLike, gotNearby } from '../store/nearby'
+
+import { detailedRestaurants } from './DummyData'
 import LoadingCircle from './LoadingCircle'
 import getRestaurants from './LoadRestaurants'
 import { loadData } from '../store/loading'
 
-const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews)
-detailedRestaurants.unshift('test')
-detailedRestaurants.push('end')
-
 class RestaurantsMain extends Component {
   state = {
     restaurants: [],
-    loading: false,
-    value: 1
+    loading: false
   }
 
   static getDerivedStateFromProps(props) {
@@ -43,42 +37,24 @@ class RestaurantsMain extends Component {
   handleDislike = restaurant => {
     this.props.seen(restaurant, this.props.userId, false)
   }
-  handleChangeIndex = (index, indexLatest) => {
-    // console.log('INDEX', index)
-    // console.log('indexlatest', indexLatest)
-    this.setState({ value: indexLatest + 1 })
-  }
   render() {
-    // let { restaurants, loading } = this.state
-    // if (!loading) {
-    //   this.loadingRestaurants()
-    // }
-    const loading = true
-    console.log(detailedRestaurants)
+    const { restaurants, loading } = this.state
+    if (!loading) {
+      this.loadingRestaurants()
+    }
     return (
       <div>
         {loading ? (
-          <BindKeyboardSwipeableViews
-            enableMouseEvents
-            resistance
-            onChangeIndex={this.handleChangeIndex}
-            index={this.state.value}
-            axis="x-reverse"
-          >
-            {detailedRestaurants.map((restaurant, index) => {
-              if (index === 0 || index === detailedRestaurants.length - 1)
-                return <div>restaurant</div>
-              else
-                return (
-                  <OneRestaurant
-                    key={restaurant.yelpId}
-                    handleLike={this.handleLike}
-                    handleDislike={this.handleDislike}
-                    restaurant={restaurant}
-                  />
-                )
-            })}
-          </BindKeyboardSwipeableViews>
+          <div>
+            {restaurants.map(restaurant => (
+              <OneRestaurant
+                key={restaurant.yelpId}
+                handleLike={this.handleLike}
+                handleDislike={this.handleDislike}
+                restaurant={restaurant}
+              />
+            ))}
+          </div>
         ) : (
           <LoadingCircle variant="indeterminate" />
         )}

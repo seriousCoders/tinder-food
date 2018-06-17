@@ -33,9 +33,6 @@ class Routes extends Component {
 
   handleChangeIndex = index => {
     this.setState({ value: index })
-    if (index === 1 && !this.props.loading) {
-      this.loadingRestaurants()
-    }
   }
 
   render() {
@@ -46,7 +43,7 @@ class Routes extends Component {
         <SwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={this.state.value}
-          onChangeIndex={() => this.handleChangeIndex(this.state.value)}
+          onChangeIndex={this.handleChangeIndex}
         >
           <TabContainer dir={theme.direction}>
             <User />
