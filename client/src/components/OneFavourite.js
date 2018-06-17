@@ -59,7 +59,7 @@ const OneFavourite = ({
           variant="contained"
           color="secondary"
           className={classes.button}
-          onClick={() => handleDelete(restaurant.yelpId)}
+          onClick={() => handleDelete(restaurant.id)}
         >
           Remove
           <Delete

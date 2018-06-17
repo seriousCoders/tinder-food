@@ -34,7 +34,7 @@ class Favourites extends Component {
   }
 
   handleDelete = restaurantId => {
-    this.props.remove(restaurantId)
+    this.props.remove(restaurantId, this.props.userId)
   }
   render() {
     const { classes, favourites } = this.props
@@ -47,7 +47,7 @@ class Favourites extends Component {
             handleChange={this.handleChange}
             handleDelete={this.handleDelete}
             expanded={expanded}
-            panel={`panel${restaurant.yelpId}`}
+            panel={`panel${restaurant.id}`}
             key={restaurant.id}
             restaurant={restaurant}
           />

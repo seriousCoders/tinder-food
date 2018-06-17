@@ -48,11 +48,11 @@ router.put('/:restaurantId', async (req, res, next) => {
   }
 })
 
-router.delete('/:yelpId', async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     await Restaurant.destroy({
       where: {
-        yelpId: req.params.yelpId
+        id: req.params.id
       }
     })
     res.status(204).end()

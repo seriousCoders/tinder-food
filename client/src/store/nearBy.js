@@ -14,7 +14,7 @@ export const popNearbyLike = (restaurant, userId, like) => async dispatch => {
   try {
     const { data } = await axios.post(`api/restaurant`, restaurant)
     await axios.post(`api/like`, { restaurantId: data.id, userId, like })
-    dispatch(addFavourite(restaurant))
+    if (like) dispatch(addFavourite(data))
     dispatch(poppedNearby())
   } catch (error) {
     console.error(error)
