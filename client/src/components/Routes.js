@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import TabBar from './TabBar'
 import User from './User'
 import Favourites from './Favourites'
+import OneRestaurant from './OneRestaurant'
 
 import getRestaurants from './LoadRestaurants'
 import { gotNearby } from '../store/nearby'
@@ -20,12 +21,12 @@ const styles = theme => ({
 
 class Routes extends Component {
   state = {
-    value: 0
+    value: 1
   }
 
   async componentDidMount() {
-    // const restaurants = await this.props.loadFromLocation(this.props.location)
-    // this.props.loadInitialData(restaurants)
+    const restaurants = await this.props.loadFromLocation(this.props.location)
+    this.props.loadInitialData(restaurants)
   }
 
   handleChange = (event, value) => {
@@ -49,7 +50,9 @@ class Routes extends Component {
           <TabContainer dir={theme.direction}>
             <User />
           </TabContainer>
-          <TabContainer dir={theme.direction}>HII</TabContainer>
+          <TabContainer dir={theme.direction}>
+            <OneRestaurant />
+          </TabContainer>
           <TabContainer dir={theme.direction}>
             <Favourites />
           </TabContainer>

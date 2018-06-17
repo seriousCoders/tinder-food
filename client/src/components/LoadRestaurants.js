@@ -31,13 +31,14 @@ const getDetails = async (businesses, func, time) => {
       price,
       photos
     } = rest.data.jsonBody
+    const address = location.display_address
     output.push({
       yelpId: id,
       name,
       imageUrl: image_url,
       latitude: coordinates.latitude,
       longitude: coordinates.longitude,
-      address: JSON.stringify(location),
+      address,
       price,
       photos
     })
