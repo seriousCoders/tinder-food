@@ -1,12 +1,20 @@
 import axios from 'axios'
 
-const getRestaurants = async location => {
+const getRestaurants = async (location, filter) => {
   const [latitude, longitude] = location
-  const { data } = await axios.get(
-    `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}`
-  )
-  const businesses = data.jsonBody.businesses
-  return businesses
+  if (!filter) {
+    const { data } = await axios.get(
+      `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}`
+    )
+    const businesses = data.jsonBody.businesses
+    return businesses
+  } else {
+    const { data } = await axios.get(
+      `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}&categories=${filter}`
+    )
+    const businesses = data.jsonBody.businesses
+    return businesses
+  }
 }
 
 const delay = func => (time, ...args) =>
