@@ -7,9 +7,11 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 
+import { detailedRestaurants } from './DummyData'
+
 const styles = {
   card: {
-    maxWidth: 345
+    maxWidth: '80wh'
   },
   media: {
     height: 0,
@@ -19,21 +21,18 @@ const styles = {
 
 const OneRestaurant = props => {
   const { classes } = props
+  const restaurant = detailedRestaurants[0]
   return (
     <div>
       <Card className={classes.card}>
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
+          image={restaurant.photos[0]}
+          title={restaurant.name}
         />
         <CardContent>
           <Typography gutterBottom variant="headline" component="h2">
-            Lizard
-          </Typography>
-          <Typography component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {`${restaurant.name}, ${restaurant.price}`}
           </Typography>
         </CardContent>
         <CardActions>

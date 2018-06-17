@@ -10,14 +10,23 @@ import { getLocation } from '../store/location'
 class Main extends Component {
   componentDidMount() {
     this.props.checkUser()
-    this.props.setCoords(this.props.location)
+    this.props.setCoords(this.props.coords)
   }
   render() {
-    return <div>{this.props.isLoggedIn ? <Routes /> : <Login />}</div>
+    return (
+      <div>
+        {this.props.isLoggedIn && this.props.location.length ? (
+          <Routes />
+        ) : (
+          <Login />
+        )}
+      </div>
+    )
   }
 }
 const mapStateToProps = state => ({
-  isLoggedIn: !!state.user.id
+  isLoggedIn: !!state.user.id,
+  location: state.location
 })
 
 const mapDispatchToProps = dispatch => ({

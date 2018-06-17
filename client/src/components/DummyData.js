@@ -17,7 +17,7 @@ const restaurants = [
   }
 ]
 
-const detailedRestaurants = [
+export const detailedRestaurants = [
   {
     address: ['60 E 65th St.', 'New York, NY 10065'],
     imageUrl:

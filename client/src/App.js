@@ -42,7 +42,7 @@ class App extends Component {
           <div>
             {this.props.coords !== null ? (
               <Main
-                location={[
+                coords={[
                   this.props.coords.latitude,
                   this.props.coords.longitude
                 ]}
