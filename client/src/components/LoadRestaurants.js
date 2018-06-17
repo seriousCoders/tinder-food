@@ -1,11 +1,12 @@
 import axios from 'axios'
 
-const getRestaurants = async (location, filter) => {
+const getRestaurants = async (location, filter, price) => {
   const [latitude, longitude] = location
   const isFilter = filter ? `&categories=${filter}` : ''
+  const isPrice = price ? `&price=${price}` : ''
 
   const { data } = await axios.get(
-    `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}${isFilter}`
+    `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}${isFilter}${isPrice}`
   )
   const businesses = data.jsonBody.businesses
   return businesses
