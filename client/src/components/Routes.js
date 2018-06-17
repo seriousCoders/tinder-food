@@ -26,13 +26,8 @@ class Routes extends Component {
     value: 1
   }
 
-  async componentDidMount() {
-    // this.props.loadInitialData(null, this.props.user.id)
-    const restaurants = await this.props.loadFromLocation(
-      this.props.location,
-      this.props.filter
-    )
-    this.props.loadInitialData(restaurants, this.props.user.id)
+  componentDidMount() {
+    this.loadingRestaurants()
   }
 
   loadingRestaurants = async () => {
@@ -40,7 +35,7 @@ class Routes extends Component {
       this.props.location,
       this.props.filter
     )
-    this.props.loadInitialData(restaurants)
+    this.props.loadInitialData(restaurants, this.props.user.id)
   }
 
   handleChange = (event, value) => {
@@ -48,13 +43,14 @@ class Routes extends Component {
   }
 
   handleChangeIndex = index => {
-    if (index === 1 && !this.props.loading) this.loadingRestaurants()
     this.setState({ value: index })
+    if (index === 1 && !this.props.loading) {
+      this.loadingRestaurants()
+    }
   }
 
   render() {
     const { classes, theme, loading } = this.props
-    console.log('INDEX', this.state)
     return (
       <div className={classes.root}>
         <TabBar handleChange={this.handleChange} value={this.state.value} />

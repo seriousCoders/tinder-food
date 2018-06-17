@@ -8,14 +8,14 @@ const POPPED_NEARBY = 'POPPED_NEARBY'
 const intialState = []
 
 export const gotNearby = nearby => ({ type: GOT_NEARBY, nearby })
-const poppedNearby = () => ({ type: POPPED_NEARBY })
+const poppedNearby = id => ({ type: POPPED_NEARBY, id })
 
 export const popNearbyLike = (restaurant, userId, like) => async dispatch => {
   try {
     const { data } = await axios.post(`api/restaurant`, restaurant)
     await axios.post(`api/like`, { restaurantId: data.id, userId, like })
     if (like) dispatch(addFavourite(data))
-    dispatch(poppedNearby())
+    dispatch(poppedNearby(data.yelpId))
   } catch (error) {
     console.error(error)
   }
@@ -27,8 +27,10 @@ export default function(state = intialState, action) {
       return action.nearby
     case POPPED_NEARBY: {
       const cp = [...state]
-      cp.pop()
-      return cp
+      const filtered = cp.filter(el => {
+        return action.id !== el.yelpId
+      })
+      return filtered
     }
     default:
       return state
