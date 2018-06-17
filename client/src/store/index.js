@@ -6,8 +6,17 @@ import user from './user'
 import favourites from './restaurants'
 import restaurants from './nearby'
 import location from './location'
+import loading from './loading'
+import filter from './filter'
 
-const reducer = combineReducers({ user, restaurants, favourites, location })
+const reducer = combineReducers({
+  user,
+  restaurants,
+  favourites,
+  location,
+  filter,
+  loading
+})
 
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

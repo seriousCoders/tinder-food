@@ -26,9 +26,22 @@ class Routes extends Component {
   }
 
   async componentDidMount() {
-    // const restaurants = await this.props.loadFromLocation(this.props.location)
-    // this.props.loadInitialData(restaurants, this.props.user.id)
+
     this.props.loadInitialData(null, this.props.user.id)
+//     const restaurants = await this.props.loadFromLocation(
+//       this.props.location,
+//       this.props.filter
+//     )
+//     this.props.loadInitialData(restaurants, this.props.user.id)
+//   }
+  }
+
+  loadingRestaurants = async () => {
+    const restaurants = await this.props.loadFromLocation(
+      this.props.location,
+      this.props.filter
+    )
+    this.props.loadInitialData(restaurants)
   }
 
   handleChange = (event, value) => {
@@ -75,7 +88,9 @@ const TabContainer = ({ children, dir, padding }) => {
 const mapStateToProps = state => ({
   user: state.user,
   location: state.location,
-  restaurants: state.restaurants
+  restaurants: state.restaurants,
+  filter: state.filter,
+  loading: state.loading
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -83,7 +98,7 @@ const mapDispatchToProps = dispatch => ({
     // dispatch(gotNearby(restaurants))
     dispatch(getFavourites(userId))
   }
-  // loadFromLocation: location => getRestaurants(location)
+  // loadFromLocation: (location, filter) => getRestaurants(location, filter)
 })
 
 export default connect(
