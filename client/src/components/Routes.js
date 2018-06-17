@@ -25,7 +25,10 @@ class Routes extends Component {
   }
 
   async componentDidMount() {
-    const restaurants = await this.props.loadFromLocation(this.props.location)
+    const restaurants = await this.props.loadFromLocation(
+      this.props.location,
+      this.props.filter
+    )
     this.props.loadInitialData(restaurants)
   }
 
@@ -73,14 +76,15 @@ const TabContainer = ({ children, dir }) => {
 const mapStateToProps = state => ({
   user: state.user,
   location: state.location,
-  restaurants: state.restaurants
+  restaurants: state.restaurants,
+  filter: state.filter
 })
 
 const mapDispatchToProps = dispatch => ({
   loadInitialData: restaurants => {
     dispatch(gotNearby(restaurants))
   },
-  loadFromLocation: location => getRestaurants(location)
+  loadFromLocation: (location, filter) => getRestaurants(location, filter)
 })
 
 export default connect(

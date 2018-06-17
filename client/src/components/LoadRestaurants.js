@@ -10,9 +10,7 @@ const getRestaurants = async (location, filter) => {
     return businesses
   } else {
     const { data } = await axios.get(
-      `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}&categories=${
-        this.props.filter
-      }`
+      `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}&categories=${filter}`
     )
     const businesses = data.jsonBody.businesses
     return businesses
