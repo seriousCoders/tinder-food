@@ -26,8 +26,9 @@ class Routes extends Component {
   }
 
   async componentDidMount() {
-    const restaurants = await this.props.loadFromLocation(this.props.location)
-    this.props.loadInitialData(restaurants, this.props.user.id)
+    // const restaurants = await this.props.loadFromLocation(this.props.location)
+    // this.props.loadInitialData(restaurants, this.props.user.id)
+    this.props.loadInitialData(null, this.props.user.id)
   }
 
   handleChange = (event, value) => {
@@ -79,10 +80,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loadInitialData: (restaurants, userId) => {
-    dispatch(gotNearby(restaurants))
+    // dispatch(gotNearby(restaurants))
     dispatch(getFavourites(userId))
-  },
-  loadFromLocation: location => getRestaurants(location)
+  }
+  // loadFromLocation: location => getRestaurants(location)
 })
 
 export default connect(

@@ -19,7 +19,7 @@ const delay = func => (time, ...args) =>
 const getDetails = async (businesses, func, time) => {
   const output = []
   let i = 0
-  while (i < 3) {
+  while (i < businesses.length) {
     const rest = await func(time, `/api/yelp/${businesses[i].id}`)
     i++
     const {

@@ -32,6 +32,7 @@ const styles = theme => ({
 
 const OneFavourite = ({
   handleChange,
+  handleDelete,
   classes,
   expanded,
   panel,
@@ -58,6 +59,7 @@ const OneFavourite = ({
           variant="contained"
           color="secondary"
           className={classes.button}
+          onClick={() => handleDelete(restaurant.yelpId)}
         >
           Remove
           <Delete

@@ -29,10 +29,10 @@ export const getFavourites = userId => async dispatch => {
   }
 }
 
-export const removeRestaurant = id => async dispatch => {
+export const removeFavourite = restaurantId => async dispatch => {
   try {
-    await axios.delete(`/api/restaurant/${id}`)
-    dispatch(removedRestaurant)
+    await axios.delete(`/api/restaurant/${restaurantId}`)
+    dispatch(removedRestaurant(restaurantId))
   } catch (err) {
     console.error(err)
   }
@@ -49,7 +49,7 @@ export default function(state = intialState, action) {
     case REMOVED_RESTAURANT: {
       const cp = [...state]
       const filtered = cp.filter(el => {
-        return action.id !== el.id
+        return action.id !== el.yelpId
       })
       return filtered
     }

@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const { Restaurant } = require('../db/models')
 const { Like } = require('../db/models')
 
 module.exports = router
@@ -9,6 +8,16 @@ router.post(`/`, async (req, res, next) => {
   res.sendStatus(200)
 })
 
-// router.delete('/', async (req, res, next) => {
-//   await Like.bul
-// })
+router.delete('/', async (req, res, next) => {
+  try {
+    await Like.destroy({
+      where: {
+        restaurantId: req.body.restaurantId,
+        userId: req.body.userId
+      }
+    })
+    res.status(204).end()
+  } catch (err) {
+    next(err)
+  }
+})
