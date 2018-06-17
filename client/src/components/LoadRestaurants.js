@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const getRestaurants = async (location, filter) => {
   const [latitude, longitude] = location
+  console.log('FILTER', filter)
   if (!filter) {
     const { data } = await axios.get(
       `/api/yelp/nearby?latitude=${latitude}&longitude=${longitude}`
@@ -27,7 +28,7 @@ const delay = func => (time, ...args) =>
 const getDetails = async (businesses, func, time) => {
   const output = []
   let i = 0
-  while (i < businesses.length) {
+  while (i < 10) {
     const rest = await func(time, `/api/yelp/${businesses[i].id}`)
     i++
     const {
@@ -54,8 +55,8 @@ const getDetails = async (businesses, func, time) => {
   return output
 }
 
-export default async location => {
-  const businesses = await getRestaurants(location)
+export default async (location, filter) => {
+  const businesses = await getRestaurants(location, filter)
   const delayedAxios = delay(axios.get.bind(axios))
   const restaurants = await getDetails(businesses, delayedAxios, 1)
   return restaurants

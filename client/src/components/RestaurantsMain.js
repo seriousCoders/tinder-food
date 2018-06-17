@@ -66,7 +66,9 @@ class RestaurantsMain extends Component {
 const mapStateToProps = state => ({
   restaurants: state.restaurants,
   userId: state.user.id,
-  loading: state.loading
+  loading: state.loading,
+  location: state.location,
+  filter: state.filter
 })
 
 const mapDispatchToProps = dispatch => ({
