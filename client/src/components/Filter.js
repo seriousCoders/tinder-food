@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { changeFilter } from '../store/filter'
+import { changeFilter, changedPrice } from '../store/filter'
 
 class Filter extends Component {
   handleChange = event => {
     this.props.changeFilter(event.target.value)
+  }
+
+  handleChangePrice = event => {
+    this.props.changePrice(event.target.value)
   }
 
   render() {
@@ -17,7 +21,7 @@ class Filter extends Component {
           <option value="mexican">Mexican</option>
           <option value="chinese">Chinese</option>
         </select>
-        <select onChange={this.handleChange}>
+        <select onChange={this.handleChangePrice}>
           <option value="">No Filter</option>
           <option value="4">$$$$</option>
           <option value="3">$$$</option>
@@ -30,7 +34,8 @@ class Filter extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  changeFilter: filter => dispatch(changeFilter(filter))
+  changeFilter: filter => dispatch(changeFilter(filter)),
+  changePrice: price => dispatch(changedPrice(price))
 })
 
 export default connect(

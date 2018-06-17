@@ -76,8 +76,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   seen: (restaurant, userId, like) =>
     dispatch(popNearbyLike(restaurant, userId, like)),
-  loadFromLocation: (location, filter, price) =>
-    getRestaurants(location, filter, price),
+  loadFromLocation: (location, filter, price, radius) =>
+    getRestaurants(location, filter, price, radius),
   loadDetails: restaurants => {
     dispatch(gotNearby(restaurants))
     dispatch(loadData())
