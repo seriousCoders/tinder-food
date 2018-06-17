@@ -26,7 +26,9 @@ class RestaurantsMain extends Component {
   loadingRestaurants = async () => {
     const restaurants = await this.props.loadFromLocation(
       this.props.location,
-      this.props.filter
+      this.props.filter.filter,
+      this.props.filter.price,
+      this.props.filter.radius
     )
     this.props.loadDetails(restaurants)
   }
@@ -74,7 +76,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   seen: (restaurant, userId, like) =>
     dispatch(popNearbyLike(restaurant, userId, like)),
-  loadFromLocation: (location, filter) => getRestaurants(location, filter),
+  loadFromLocation: (location, filter, price) =>
+    getRestaurants(location, filter, price),
   loadDetails: restaurants => {
     dispatch(gotNearby(restaurants))
     dispatch(loadData())

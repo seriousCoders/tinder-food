@@ -9,7 +9,6 @@ router.get('/nearby', async (req, res, next) => {
     const testData = await client.search({
       ...req.query,
       term: 'restaurants',
-      radius: 1600,
       sort_by: 'rating'
     })
     res.json(testData)
