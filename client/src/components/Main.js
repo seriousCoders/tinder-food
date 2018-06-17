@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { geolocated } from 'react-geolocated'
 
 import Login from './Login'
 import Routes from './Routes'

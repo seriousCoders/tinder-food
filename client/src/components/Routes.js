@@ -50,10 +50,10 @@ class Routes extends Component {
           <TabContainer dir={theme.direction}>
             <User />
           </TabContainer>
-          <TabContainer dir={theme.direction}>
+          <TabContainer dir={theme.direction} padding={10}>
             <OneRestaurant />
           </TabContainer>
-          <TabContainer dir={theme.direction}>
+          <TabContainer dir={theme.direction} padding={20}>
             <Favourites />
           </TabContainer>
         </SwipeableViews>
@@ -62,9 +62,9 @@ class Routes extends Component {
   }
 }
 
-const TabContainer = ({ children, dir }) => {
+const TabContainer = ({ children, dir, padding }) => {
   return (
-    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+    <Typography component="div" dir={dir} style={{ padding: padding }}>
       {children}
     </Typography>
   )
