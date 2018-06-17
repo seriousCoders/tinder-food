@@ -33,12 +33,12 @@ class Favourites extends Component {
     })
   }
   render() {
-    const { classes } = this.props
+    const { classes, favourites } = this.props
     const { expanded } = this.state
 
     return (
       <div className={classes.root}>
-        {restaurants.map(restaurant => (
+        {favourites.map(restaurant => (
           <OneFavourite
             handleChange={this.handleChange}
             expanded={expanded}
@@ -53,8 +53,8 @@ class Favourites extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoggedIn: !!state.user.id
-  // favourites: state.favourites
+  isLoggedIn: !!state.user.id,
+  favourites: state.favourites
 })
 
 const mapDispatchToProps = dispatch => ({
