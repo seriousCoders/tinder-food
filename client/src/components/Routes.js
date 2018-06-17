@@ -7,10 +7,11 @@ import Typography from '@material-ui/core/Typography'
 import TabBar from './TabBar'
 import User from './User'
 import Favourites from './Favourites'
-import OneRestaurant from './OneRestaurant'
+import RestaurantsMain from './RestaurantsMain'
 
 import getRestaurants from './LoadRestaurants'
 import { gotNearby } from '../store/nearby'
+import { getFavourites } from '../store/restaurants'
 
 const styles = theme => ({
   root: {
@@ -25,11 +26,14 @@ class Routes extends Component {
   }
 
   async componentDidMount() {
-    const restaurants = await this.props.loadFromLocation(
-      this.props.location,
-      this.props.filter
-    )
-    this.props.loadInitialData(restaurants)
+
+    this.props.loadInitialData(null, this.props.user.id)
+//     const restaurants = await this.props.loadFromLocation(
+//       this.props.location,
+//       this.props.filter
+//     )
+//     this.props.loadInitialData(restaurants, this.props.user.id)
+//   }
   }
 
   loadingRestaurants = async () => {
@@ -61,10 +65,10 @@ class Routes extends Component {
           <TabContainer dir={theme.direction}>
             <User />
           </TabContainer>
-          <TabContainer dir={theme.direction}>
-            <OneRestaurant />
+          <TabContainer dir={theme.direction} padding={10}>
+            <RestaurantsMain />
           </TabContainer>
-          <TabContainer dir={theme.direction}>
+          <TabContainer dir={theme.direction} padding={20}>
             <Favourites />
           </TabContainer>
         </SwipeableViews>
@@ -73,9 +77,9 @@ class Routes extends Component {
   }
 }
 
-const TabContainer = ({ children, dir }) => {
+const TabContainer = ({ children, dir, padding }) => {
   return (
-    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
+    <Typography component="div" dir={dir} style={{ padding: padding }}>
       {children}
     </Typography>
   )
@@ -90,10 +94,11 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  loadInitialData: restaurants => {
-    dispatch(gotNearby(restaurants))
-  },
-  loadFromLocation: (location, filter) => getRestaurants(location, filter)
+  loadInitialData: (restaurants, userId) => {
+    // dispatch(gotNearby(restaurants))
+    dispatch(getFavourites(userId))
+  }
+  // loadFromLocation: (location, filter) => getRestaurants(location, filter)
 })
 
 export default connect(

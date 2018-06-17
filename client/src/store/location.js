@@ -1,7 +1,3 @@
-import axios from 'axios'
-import { WSANOTINITIALISED } from 'constants'
-// import history from '../history'
-
 const GET_LOCATION = 'GET_LOCATION'
 const REMOVE_LOCATION = 'REMOVE_LOCATION'
 

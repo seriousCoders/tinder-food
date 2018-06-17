@@ -1,6 +1,5 @@
 const router = require('express').Router()
-const { Restaurant } = require('../db/models')
-const { Like } = require('../db/models/Like')
+const { Restaurant, User } = require('../db/models')
 
 module.exports = router
 
@@ -10,13 +9,11 @@ router.get('/', async (req, res, next) => {
       const restaurants = await Restaurant.findAll()
       res.json(restaurants)
     } else {
-      const userResturants = await Like.findAll({
+      const userResturants = await User.findOne({
         where: {
-          userId: req.query.id,
-          include: {
-            model: Restaurant
-          }
-        }
+          id: req.query.id
+        },
+        include: [{ model: Restaurant }]
       })
       res.json(userResturants)
     }
@@ -28,7 +25,7 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const restaurant = await Restaurant.findOrCreate({
-      where: { yelpId: req.body.id },
+      where: { yelpId: req.body.yelpId },
       defaults: req.body
     }).spread(result => result)
     res.json(restaurant)
@@ -51,11 +48,11 @@ router.put('/:restaurantId', async (req, res, next) => {
   }
 })
 
-router.delete('/:restaurantId', async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     await Restaurant.destroy({
       where: {
-        id: req.params.restaurantId
+        id: req.params.id
       }
     })
     res.status(204).end()

@@ -12,12 +12,12 @@ module.exports = app
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
 passport.serializeUser((user, done) => done(null, user.id))
-passport.deserializeUser((id, done) => {
+passport.deserializeUser((id, done) =>
   db.models.user
     .findById(id)
     .then(user => done(null, user))
     .catch(done)
-})
+)
 
 app.use(volleyball)
 app.use(bodyParser.json())
@@ -46,7 +46,7 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, async () => {
-  await db.sync()
+  await db.sync({ force: true })
   console.log('DB synced!')
   console.log(`Listening on port ${PORT}`)
 })

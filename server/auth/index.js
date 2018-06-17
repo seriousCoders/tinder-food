@@ -22,7 +22,6 @@ if (!process.env.FACEBOOK_APP_ID || !process.env.FACEBOOK_APP_SECRET) {
           name: profile.displayName,
           imageUrl: `http://graph.facebook.com/${profile.id}/picture?type=large`
         }
-        console.log('PROFILE', profile)
         await User.findOrCreate({
           where: { facebookId: info.facebookId },
           defaults: info
@@ -36,7 +35,6 @@ if (!process.env.FACEBOOK_APP_ID || !process.env.FACEBOOK_APP_SECRET) {
 
   router.get(
     '/',
-    cors(),
     passport.authenticate('facebook', { scope: 'public_profile' })
   )
 

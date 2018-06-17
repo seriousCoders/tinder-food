@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 
 import OneFavourite from './OneFavourite'
-import restaurants from './DummyData'
+import { removeFavourite } from '../store/restaurants'
 
 const styles = theme => ({
   root: {
@@ -32,15 +32,20 @@ class Favourites extends Component {
       expanded: expanded ? panel : false
     })
   }
+
+  handleDelete = restaurantId => {
+    this.props.remove(restaurantId, this.props.userId)
+  }
   render() {
-    const { classes } = this.props
+    const { classes, favourites } = this.props
     const { expanded } = this.state
 
     return (
       <div className={classes.root}>
-        {restaurants.map(restaurant => (
+        {favourites.map(restaurant => (
           <OneFavourite
             handleChange={this.handleChange}
+            handleDelete={this.handleDelete}
             expanded={expanded}
             panel={`panel${restaurant.id}`}
             key={restaurant.id}
@@ -53,14 +58,14 @@ class Favourites extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoggedIn: !!state.user.id
-  // favourites: state.favourites
+  userId: state.user.id,
+  favourites: state.favourites
 })
 
 const mapDispatchToProps = dispatch => ({
-  // logout() {
-  //   dispatch(logout())
-  // }
+  remove: (restaurantId, userId) => {
+    dispatch(removeFavourite(restaurantId, userId))
+  }
 })
 
 export default connect(
