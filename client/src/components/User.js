@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 
+import Filter from './Filter'
 import DeleteConfirmation from './DeleteConfirmation'
 import { logout, deleteUser } from '../store/user'
 
@@ -56,6 +57,7 @@ class User extends Component {
           src={user.imageUrl}
           className={classNames(classes.avatar, classes.bigAvatar)}
         />
+        <Filter />
         <Button className={classes.button} onClick={this.props.logout}>
           Logout
         </Button>

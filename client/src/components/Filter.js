@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { changeFilter } from './store/filter'
+import { changeFilter } from '../store/filter'
 
 class Filter extends Component {
   handleChange = event => {

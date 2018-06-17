@@ -14,11 +14,12 @@ class RestaurantsMain extends Component {
     this.props.seen(restaurant, this.props.userId, false)
   }
   render() {
+    const { restaurants } = this.props
     return (
       <div>
-        {detailedRestaurants.map(restaurant => (
+        {restaurants.map(restaurant => (
           <OneRestaurant
-            key={restaurant.id}
+            key={restaurant.yelpId}
             handleLike={this.handleLike}
             handleDislike={this.handleDislike}
             restaurant={restaurant}
