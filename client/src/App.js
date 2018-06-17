@@ -17,23 +17,6 @@ const styles = () => ({
   }
 })
 class App extends Component {
-  handleLike = () => {
-    // Send thunks to findOrCreate a restaurant
-    // Send a thunk to add to Like table
-    this.props.popnearbyLike(
-      this.props.nearby[this.props.nearby.length - 1],
-      this.props.user.id,
-      1
-    )
-  }
-
-  handleDislike = () => {
-    this.props.popnearbyLike(
-      this.props.nearby[this.props.nearby.length - 1],
-      this.props.user.id
-    )
-  }
-
   render() {
     const { classes } = this.props
     return (
@@ -60,9 +43,18 @@ class App extends Component {
             )}
           </div>
         ) : (
-          <Typography>
-            Sorry, location services are required to be enabled to use this app.
-          </Typography>
+          <Grid
+            container
+            alignItems="center"
+            justify="center"
+            direction="column"
+            className={classes.grid}
+          >
+            <Typography>
+              Sorry, location services are required to be enabled to use this
+              app.
+            </Typography>
+          </Grid>
         )}
       </div>
     )

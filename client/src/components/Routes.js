@@ -7,10 +7,11 @@ import Typography from '@material-ui/core/Typography'
 import TabBar from './TabBar'
 import User from './User'
 import Favourites from './Favourites'
-import OneRestaurant from './OneRestaurant'
+import RestaurantsMain from './RestaurantsMain'
 
 import getRestaurants from './LoadRestaurants'
 import { gotNearby } from '../store/nearby'
+import { getFavourites } from '../store/restaurants'
 
 const styles = theme => ({
   root: {
@@ -25,8 +26,8 @@ class Routes extends Component {
   }
 
   async componentDidMount() {
-    // const restaurants = await this.props.loadFromLocation(this.props.location)
-    // this.props.loadInitialData(restaurants)
+    const restaurants = await this.props.loadFromLocation(this.props.location)
+    this.props.loadInitialData(restaurants, this.props.user.id)
   }
 
   handleChange = (event, value) => {
@@ -51,7 +52,7 @@ class Routes extends Component {
             <User />
           </TabContainer>
           <TabContainer dir={theme.direction} padding={10}>
-            <OneRestaurant />
+            <RestaurantsMain />
           </TabContainer>
           <TabContainer dir={theme.direction} padding={20}>
             <Favourites />
@@ -77,8 +78,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  loadInitialData: restaurants => {
+  loadInitialData: (restaurants, userId) => {
     dispatch(gotNearby(restaurants))
+    dispatch(getFavourites(userId))
   },
   loadFromLocation: location => getRestaurants(location)
 })

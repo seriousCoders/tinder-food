@@ -1,6 +1,5 @@
 const router = require('express').Router()
-const { Restaurant } = require('../db/models')
-const { Like } = require('../db/models/Like')
+const { Restaurant, User } = require('../db/models')
 
 module.exports = router
 
@@ -10,13 +9,11 @@ router.get('/', async (req, res, next) => {
       const restaurants = await Restaurant.findAll()
       res.json(restaurants)
     } else {
-      const userResturants = await Like.findAll({
+      const userResturants = await User.findOne({
         where: {
-          userId: req.query.id,
-          include: {
-            model: Restaurant
-          }
-        }
+          id: req.query.id
+        },
+        include: [{ model: Restaurant }]
       })
       res.json(userResturants)
     }
