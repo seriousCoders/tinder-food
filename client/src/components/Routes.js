@@ -12,6 +12,7 @@ import RestaurantsMain from './RestaurantsMain'
 import getRestaurants from './LoadRestaurants'
 import { gotNearby } from '../store/nearby'
 import { getFavourites } from '../store/restaurants'
+import { loadData } from '../store/loading'
 
 const styles = theme => ({
   root: {
@@ -47,18 +48,20 @@ class Routes extends Component {
   }
 
   handleChangeIndex = index => {
+    if (index === 1 && !this.props.loading) this.loadingRestaurants()
     this.setState({ value: index })
   }
 
   render() {
-    const { classes, theme } = this.props
+    const { classes, theme, loading } = this.props
+    console.log('INDEX', this.state)
     return (
       <div className={classes.root}>
         <TabBar handleChange={this.handleChange} value={this.state.value} />
         <SwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={this.state.value}
-          onChangeIndex={this.handleChangeIndex}
+          onChangeIndex={() => this.handleChangeIndex(this.state.value)}
         >
           <TabContainer dir={theme.direction}>
             <User />
@@ -95,8 +98,10 @@ const mapDispatchToProps = dispatch => ({
   loadInitialData: (restaurants, userId) => {
     dispatch(gotNearby(restaurants))
     dispatch(getFavourites(userId))
+    dispatch(loadData())
   },
-  loadFromLocation: (location, filter) => getRestaurants(location, filter)
+  loadFromLocation: (location, filter) => getRestaurants(location, filter),
+  loading: () => dispatch(loadData())
 })
 
 export default connect(

@@ -5,6 +5,7 @@ import OneRestaurant from './OneRestaurant'
 import { popNearbyLike } from '../store/nearby'
 
 import { detailedRestaurants } from './DummyData'
+import LoadingCircle from './LoadingCircle'
 
 class RestaurantsMain extends Component {
   handleLike = restaurant => {
@@ -14,17 +15,23 @@ class RestaurantsMain extends Component {
     this.props.seen(restaurant, this.props.userId, false)
   }
   render() {
-    const { restaurants } = this.props
+    const { restaurants, loading } = this.props
     return (
       <div>
-        {restaurants.map(restaurant => (
-          <OneRestaurant
-            key={restaurant.yelpId}
-            handleLike={this.handleLike}
-            handleDislike={this.handleDislike}
-            restaurant={restaurant}
-          />
-        ))}
+        {loading ? (
+          <div>
+            {restaurants.map(restaurant => (
+              <OneRestaurant
+                key={restaurant.yelpId}
+                handleLike={this.handleLike}
+                handleDislike={this.handleDislike}
+                restaurant={restaurant}
+              />
+            ))}
+          </div>
+        ) : (
+          <LoadingCircle variant="indeterminate" />
+        )}
       </div>
     )
   }
@@ -32,7 +39,8 @@ class RestaurantsMain extends Component {
 
 const mapStateToProps = state => ({
   restaurants: state.restaurants,
-  userId: state.user.id
+  userId: state.user.id,
+  loading: state.loading
 })
 
 const mapDispatchToProps = dispatch => ({
