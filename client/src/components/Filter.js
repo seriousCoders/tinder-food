@@ -9,13 +9,22 @@ class Filter extends Component {
 
   render() {
     return (
-      <select onChange={this.handleChange}>
-        <option value="">No Filter</option>
-        <option value="pizza">Pizza</option>
-        <option value="korean">Korean</option>
-        <option value="mexican">Mexican</option>
-        <option value="chinese">Chinese</option>
-      </select>
+      <div>
+        <select onChange={this.handleChange}>
+          <option value="">No Filter</option>
+          <option value="pizza">Pizza</option>
+          <option value="korean">Korean</option>
+          <option value="mexican">Mexican</option>
+          <option value="chinese">Chinese</option>
+        </select>
+        <select onChange={this.handleChange}>
+          <option value="">No Filter</option>
+          <option value="4">$$$$</option>
+          <option value="3">$$$</option>
+          <option value="2">$$</option>
+          <option value="1">$</option>
+        </select>
+      </div>
     )
   }
 }
