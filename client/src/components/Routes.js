@@ -9,10 +9,7 @@ import User from './User'
 import Favourites from './Favourites'
 import RestaurantsMain from './RestaurantsMain'
 
-import getRestaurants from './LoadRestaurants'
-import { gotNearby } from '../store/nearby'
 import { getFavourites } from '../store/restaurants'
-import { loadData } from '../store/loading'
 
 const styles = theme => ({
   root: {
@@ -27,15 +24,7 @@ class Routes extends Component {
   }
 
   componentDidMount() {
-    this.props.loadInitialData()
-  }
-
-  loadingRestaurants = async () => {
-    const restaurants = await this.props.loadFromLocation(
-      this.props.location,
-      this.props.filter
-    )
-    this.props.loadInitialData(restaurants, this.props.user.id)
+    this.props.loadInitialData(this.props.user.id)
   }
 
   handleChange = (event, value) => {
@@ -50,7 +39,7 @@ class Routes extends Component {
   }
 
   render() {
-    const { classes, theme, loading } = this.props
+    const { classes, theme } = this.props
     return (
       <div className={classes.root}>
         <TabBar handleChange={this.handleChange} value={this.state.value} />
@@ -91,13 +80,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  loadInitialData: (restaurants, userId) => {
-    // dispatch(gotNearby(restaurants))
+  loadInitialData: userId => {
     dispatch(getFavourites(userId))
-    // dispatch(loadData())
   }
-  // loadFromLocation: (location, filter) => getRestaurants(location, filter),
-  // loading: () => dispatch(loadData())
 })
 
 export default connect(
