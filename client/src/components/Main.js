@@ -15,7 +15,7 @@ class Main extends Component {
   render() {
     return (
       <div>
-        {!this.props.isLoggedIn && this.props.location.length ? (
+        {this.props.isLoggedIn && this.props.location.length ? (
           <Routes />
         ) : (
           <Login />
