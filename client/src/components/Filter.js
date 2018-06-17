@@ -20,9 +20,9 @@ class Filter extends Component {
   }
 }
 
-const mapDispatchToProps = {
+const mapDispatchToProps = dispatch => ({
   changeFilter: filter => dispatch(changeFilter(filter))
-}
+})
 
 export default connect(
   null,
