@@ -7,15 +7,9 @@ const CHANGED_RADIUS = 'CHANGED_RADIUS'
 
 // ACTION CREATORS
 
-const loadedData = () => ({
+export const loadData = () => ({
   type: LOADED_DATA
 })
-
-// THUNK
-
-export const loadData = () => dispatch => {
-  dispatch(loadedData())
-}
 
 const initialState = false
 
