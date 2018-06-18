@@ -47,7 +47,7 @@ class RestaurantsMain extends Component {
     }
     return (
       <div>
-        {loading ? (
+        {loading && restaurants.length ? (
           <div>
             {restaurants.map(restaurant => (
               <OneRestaurant
@@ -58,8 +58,10 @@ class RestaurantsMain extends Component {
               />
             ))}
           </div>
-        ) : (
+        ) : !loading ? (
           <LoadingCircle variant="indeterminate" />
+        ) : (
+          <div>No Restaurants with these filters</div>
         )}
       </div>
     )
