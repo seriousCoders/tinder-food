@@ -50,8 +50,15 @@ class Filter extends Component {
           <option value={this.props.isOpen}>{isOpen}</option>
           <option value={!this.props.isOpen}>{open}</option>
         </select>
-        <label>HOW FAR?</label>
-        <input value={this.props.radius} onChange={this.handleChangeRadius} />
+        <input
+          type="range"
+          name="radius"
+          min="0"
+          max="4000"
+          value={this.props.radius}
+          onChange={this.handleChangeRadius}
+        />
+        <label>{this.props.radius} Meters</label>
       </div>
     )
   }
