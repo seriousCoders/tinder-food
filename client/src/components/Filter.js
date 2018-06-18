@@ -26,6 +26,7 @@ class Filter extends Component {
 
   render() {
     const isOpen = this.props.isOpen ? 'TRUE' : 'FALSE'
+    const open = this.props.isOpen ? 'FALSE' : 'TRUE'
     return (
       <div>
         <label>FILTER</label>
@@ -47,7 +48,7 @@ class Filter extends Component {
         <label>OPEN NOW</label>
         <select onChange={this.handleChangeOpen}>
           <option value={this.props.isOpen}>{isOpen}</option>
-          <option value={!this.props.isOpen}>{isOpen}</option>
+          <option value={!this.props.isOpen}>{open}</option>
         </select>
         <label>HOW FAR?</label>
         <input value={this.props.radius} onChange={this.handleChangeRadius} />
