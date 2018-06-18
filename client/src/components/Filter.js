@@ -8,50 +8,99 @@ import {
 } from '../store/filter'
 
 class Filter extends Component {
+  state = {
+    filter: '1,2,3,4',
+    isOpen: 'false',
+    price: '',
+    radius: 1600
+  }
+
+  // static getDerivedStateFromProps(props) {
+  //   return { ...props.filter }
+  // }
+
   handleChange = event => {
-    this.props.changeFilter(event.target.value)
+    this.setState({
+      [event.target.name]: event.target.value
+    })
   }
 
   handleChangePrice = event => {
-    this.props.changePrice(event.target.value)
-  }
-
-  handleChangeOpen = event => {
-    this.props.changeOpen(event.target.value)
-  }
-
-  handleChangeRadius = event => {
-    this.props.changeRadius(event.target.value)
+    let string
+    let strArray = this.state.price.split(',')
+    if (this.state.includes('1', '2', '3', '4')) {
+      strArray = []
+    }
+    if (this.state.price.includes(event.target.value)) {
+      const filtered = strArray.filter(el => {
+        return event.target.value !== el
+      })
+      string = filtered.join(',')
+    } else {
+      string = [...strArray, event.target.value].join(',')
+    }
+    this.setState({ price: string })
   }
 
   render() {
-    const isOpen = this.props.isOpen ? 'TRUE' : 'FALSE'
-    const open = this.props.isOpen ? 'FALSE' : 'TRUE'
+    const isOpen = this.state.isOpen ? 'TRUE' : 'FALSE'
+    const open = this.state.isOpen ? 'FALSE' : 'TRUE'
+    console.log('state', this.state)
     return (
       <div>
-        <label>FILTER</label>
-        <select onChange={this.handleChange}>
-          <option value="">No Filter</option>
-          <option value="pizza">Pizza</option>
-          <option value="korean">Korean</option>
-          <option value="mexican">Mexican</option>
-          <option value="chinese">Chinese</option>
-        </select>
-        <label>PRICE</label>
-        <select onChange={this.handleChangePrice}>
-          <option value="">No Filter</option>
-          <option value="4">$$$$</option>
-          <option value="3">$$$</option>
-          <option value="2">$$</option>
-          <option value="1">$</option>
-        </select>
-        <label>OPEN NOW</label>
-        <select onChange={this.handleChangeOpen}>
-          <option value={this.props.isOpen}>{isOpen}</option>
-          <option value={!this.props.isOpen}>{open}</option>
-        </select>
-        <label>HOW FAR?</label>
-        <input value={this.props.radius} onChange={this.handleChangeRadius} />
+        <form>
+          <fieldset onChange={this.handleChange}>
+            <legend>FILTER</legend>
+            {/* <input name="filter" type="checkbox" value="" />
+            <label>No Filter</label>
+            <br /> */}
+            <input name="filter" type="checkbox" value="pizza" />
+            <label>Pizza</label>
+            <br />
+            <input name="filter" type="checkbox" value="korean" />
+            <label>Korean</label>
+            <br />
+            <input name="filter" type="checkbox" value="mexican" />
+            <label>Mexican</label>
+            <br />
+            <input name="filter" type="checkbox" value="chinese" />
+            <label>Chinese</label>
+            <br />
+          </fieldset>
+          <fieldset onChange={this.handleChangePrice}>
+            <legend>PRICE</legend>
+            {/* <input name="price" type="checkbox" value="1,2,3,4" />
+            <label>No Filter</label>
+            <br /> */}
+            <input name="price" type="checkbox" value="4" />
+            <label>$$$$</label>
+            <br />
+            <input name="price" type="checkbox" value="3" />
+            <label>$$$</label>
+            <br />
+            <input name="price" type="checkbox" value="2" />
+            <label>$$</label>
+            <br />
+            <input name="price" type="checkbox" value="1" />
+            <label>$</label>
+            <br />
+          </fieldset>
+          <label>OPEN NOW</label>
+          <select name="isOpen" onChange={this.handleChange}>
+            <option value={false}>FALSE</option>
+            <option value={true}>TRUE</option>
+          </select>
+          <label>HOW FAR?</label>
+          <input
+            type="range"
+            name="radius"
+            min="0"
+            max="4000"
+            value={this.state.radius}
+            onChange={this.handleChange}
+          />
+          <label>{this.state.radius} Meters</label>
+        </form>
       </div>
     )
   }
@@ -65,8 +114,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  radius: state.filter.radius,
-  isOpen: state.filter.isOpen
+  filter: state.filter
 })
 
 export default connect(
