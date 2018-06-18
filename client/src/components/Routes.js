@@ -7,8 +7,9 @@ import Typography from '@material-ui/core/Typography'
 import TabBar from './TabBar'
 import User from './User'
 import Favourites from './Favourites'
-import RestaurantsMain from './RestaurantsMain'
+import RestaurantsMain from './RestaurantsMain2'
 import { getFavourites } from '../store/restaurants'
+import { getNearbyRestaurants } from '../store/nearby'
 
 const styles = theme => ({
   root: {
@@ -36,6 +37,9 @@ class Routes extends Component {
 
   render() {
     const { classes, theme } = this.props
+    if (this.state.value === 1 && !this.props.loading) {
+      this.props.updateRestaurantList()
+    }
     return (
       <div className={classes.root}>
         <TabBar handleChange={this.handleChange} value={this.state.value} />
@@ -78,7 +82,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loadInitialData: userId => {
     dispatch(getFavourites(userId))
-  }
+  },
+  updateRestaurantList: () => dispatch(getNearbyRestaurants())
 })
 
 export default connect(
