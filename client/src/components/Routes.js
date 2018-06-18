@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import TabBar from './TabBar'
 import User from './User'
 import Favourites from './Favourites'
-import RestaurantsMain from './RestaurantsMain2'
+import RestaurantsMain from './RestaurantsMain'
 import { getFavourites } from '../store/restaurants'
 import { getNearbyRestaurants } from '../store/nearby'
 

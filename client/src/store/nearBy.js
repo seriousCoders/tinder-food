@@ -13,7 +13,6 @@ const poppedNearby = id => ({ type: POPPED_NEARBY, id })
 
 export const getNearbyRestaurants = () => async (dispatch, getState) => {
   const { location, filter } = getState()
-  console.log('I"M HEREE LOADING RESTAURANTS')
   const restaurants = await loadRestaurants(
     location,
     filter.filter,
@@ -21,7 +20,6 @@ export const getNearbyRestaurants = () => async (dispatch, getState) => {
     filter.radius,
     filter.isOpen
   )
-  console.log('I"M LOADED?!?!?!')
   dispatch(gotNearby(restaurants))
 }
 

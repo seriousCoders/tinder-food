@@ -42,6 +42,38 @@ class Images extends Component {
           image={photos[imageIdx]}
           title={name}
         >
+          <div />
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              minHeight: '30em'
+            }}
+          >
+            <button
+              type="button"
+              style={{
+                width: '2em',
+                backgroundColor: 'Transparent',
+                border: 'none'
+              }}
+              onClick={() => this.onSwiped(-1)}
+            >
+              ⇦
+            </button>
+            <button
+              type="button"
+              style={{
+                width: '2em',
+                backgroundColor: 'Transparent',
+                border: 'none'
+              }}
+              onClick={() => this.onSwiped(1)}
+            >
+              ⇨
+            </button>
+          </div>
           <Typography
             variant="headline"
             component="h3"
@@ -49,14 +81,6 @@ class Images extends Component {
           >
             {`${name}, ${price}`}
           </Typography>
-          <div>
-            <button type="button" onClick={() => this.onSwiped(-1)}>
-              ⇦
-            </button>
-            <button type="button" onClick={() => this.onSwiped(1)}>
-              ⇨
-            </button>
-          </div>
         </CardMedia>
       </Swipeable>
     )

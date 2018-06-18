@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button'
 import Filter from './Filter'
 import DeleteConfirmation from './DeleteConfirmation'
 import { logout, deleteUser } from '../store/user'
+import { Typography } from '@material-ui/core'
 
 const styles = theme => ({
   button: {
@@ -18,7 +19,8 @@ const styles = theme => ({
     borderRadius: '25px'
   },
   cssRoot: {
-    backgroundColor: 'red'
+    backgroundColor: 'rgb(198, 35, 65)',
+    color: 'white'
   },
   column: {
     display: 'flex',
@@ -57,6 +59,9 @@ class User extends Component {
           src={user.imageUrl}
           className={classNames(classes.avatar, classes.bigAvatar)}
         />
+        <Typography variant="subheading">
+          Ready to chow, {user.name}!
+        </Typography>
         <Filter />
         <Button className={classes.button} onClick={this.props.logout}>
           Logout

@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
   grid: {
-    // background: 'linear-gradient(180deg, #fe6b8b 30%, #ff8e53 90%)',
     height: '100vh',
     width: '100wh',
     margin: 0,
