@@ -9,9 +9,9 @@ import {
 
 class Filter extends Component {
   state = {
-    filter: '1,2,3,4',
+    filter: [],
     isOpen: 'false',
-    price: '',
+    price: ['1', '2', '3', '4'],
     radius: 1600
   }
 
@@ -26,30 +26,46 @@ class Filter extends Component {
   }
 
   handleChangePrice = event => {
-    let string
-    let strArray = this.state.price.split(',')
-    if (this.state.includes('1', '2', '3', '4')) {
-      strArray = []
+    let { priceModified, price } = this.state
+    let output
+    if (!priceModified) {
+      priceModified = true
+      price = []
     }
-    if (this.state.price.includes(event.target.value)) {
-      const filtered = strArray.filter(el => {
-        return event.target.value !== el
-      })
-      string = filtered.join(',')
+    if (!price.includes(event.target.value)) {
+      output = [...price, event.target.value]
     } else {
-      string = [...strArray, event.target.value].join(',')
+      output = price.filter(el => {
+        return el !== event.target.value
+      })
     }
-    this.setState({ price: string })
+    if (!output.length) {
+      output = ['1', '2', '3', '4']
+    }
+    this.setState({ price: output, priceModified })
+  }
+
+  handleChangeFilter = event => {
+    const { filter } = this.state
+    let output
+    if (!filter.includes(event.target.value)) {
+      output = [...filter, event.target.value]
+    } else {
+      output = filter.filter(el => {
+        return el !== event.target.value
+      })
+    }
+    this.setState({ filter: output })
   }
 
   render() {
-    const isOpen = this.state.isOpen ? 'TRUE' : 'FALSE'
-    const open = this.state.isOpen ? 'FALSE' : 'TRUE'
+    // const isOpen = this.state.isOpen ? 'TRUE' : 'FALSE'
+    // const open = this.state.isOpen ? 'FALSE' : 'TRUE'
     console.log('state', this.state)
     return (
       <div>
         <form>
-          <fieldset onChange={this.handleChange}>
+          <fieldset onChange={this.handleChangeFilter}>
             <legend>FILTER</legend>
             {/* <input name="filter" type="checkbox" value="" />
             <label>No Filter</label>
