@@ -5,6 +5,7 @@ import FormControl from '@material-ui/core/FormControl'
 import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
+import Slider from '@material-ui/lab/Slider'
 import Switch from '@material-ui/core/Switch'
 import { connect } from 'react-redux'
 import {
@@ -78,11 +79,11 @@ class Filter extends Component {
     this.props.changeFilter(output.join(','))
   }
 
-  handleChangeRadius = event => {
+  handleChangeRadius = (event, value) => {
     this.setState({
-      [event.target.name]: event.target.value
+      radius: value
     })
-    this.props.changeRadius(event.target.value)
+    this.props.changeRadius(value)
   }
 
   render() {
@@ -150,12 +151,21 @@ class Filter extends Component {
             />
             <div id="slide-container">
               <div>
-                <input
+                {/* <input
                   type="range"
                   name="radius"
                   min="0"
                   max="4000"
                   value={this.state.radius}
+                  onChange={this.handleChangeRadius}
+                /> */}
+                <Slider
+                  component="div"
+                  value={this.state.radius}
+                  aria-labelledby="radius"
+                  min={0}
+                  max={4000}
+                  step={10}
                   onChange={this.handleChangeRadius}
                 />
               </div>

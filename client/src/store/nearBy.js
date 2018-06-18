@@ -3,7 +3,6 @@ import { addFavourite } from './restaurants'
 import loadRestaurants from '../components/LoadRestaurants'
 
 const GOT_NEARBY = 'GOT_NEARBY'
-const REMOVED_NEARBY = 'REMOVE_RESTAURANT'
 const POPPED_NEARBY = 'POPPED_NEARBY'
 
 const intialState = []
