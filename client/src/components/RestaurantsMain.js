@@ -5,10 +5,25 @@ import { bindKeyboard } from 'react-swipeable-views-utils'
 import OneRestaurant from './OneRestaurant'
 import { popNearbyLike } from '../store/nearby'
 import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import { withStyles } from '@material-ui/core/styles'
 
-import { detailedRestaurants } from './DummyData'
 import LoadingCircle from './LoadingCircle'
 const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews)
+
+const styles = theme => ({
+  grid: {
+    // background: 'linear-gradient(180deg, #fe6b8b 30%, #ff8e53 90%)',
+    height: '100vh',
+    width: '100wh',
+    margin: 0,
+    backgroundImage: 'url("/img/burgerbg.png")',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    opacity: 0.9
+  }
+})
 
 class RestaurantsMain extends Component {
   state = {
@@ -31,7 +46,7 @@ class RestaurantsMain extends Component {
   }
 
   render() {
-    const { restaurants, loading } = this.props
+    const { restaurants, loading, classes } = this.props
 
     return (
       <div>
@@ -68,7 +83,15 @@ class RestaurantsMain extends Component {
             )}
           </div>
         ) : (
-          <LoadingCircle variant="indeterminate" />
+          <Grid
+            container
+            alignItems="center"
+            justify="center"
+            direction="column"
+            className={classes.grid}
+          >
+            <LoadingCircle variant="indeterminate" />
+          </Grid>
         )}
       </div>
     )
@@ -89,4 +112,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RestaurantsMain)
+)(withStyles(styles)(RestaurantsMain))
