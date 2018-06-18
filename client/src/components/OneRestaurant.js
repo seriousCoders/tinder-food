@@ -15,8 +15,8 @@ const styles = {
   media: {
     minHeight: '75vh',
     display: 'flex',
-    alignItems: 'flex-end',
     justifyContent: 'space-between',
+    flexDirection: 'column',
     padding: '15px'
   },
   actions: {

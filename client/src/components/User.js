@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button'
 import Filter from './Filter'
 import DeleteConfirmation from './DeleteConfirmation'
 import { logout, deleteUser } from '../store/user'
+import { Typography } from '@material-ui/core'
 
 const styles = theme => ({
   button: {
@@ -58,6 +59,9 @@ class User extends Component {
           src={user.imageUrl}
           className={classNames(classes.avatar, classes.bigAvatar)}
         />
+        <Typography variant="subheading">
+          Ready to chow, {user.name}!
+        </Typography>
         <Filter />
         <Button className={classes.button} onClick={this.props.logout}>
           Logout

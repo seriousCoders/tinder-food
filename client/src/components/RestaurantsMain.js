@@ -13,7 +13,7 @@ const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews)
 
 const styles = () => ({
   grid: {
-    height: '100vh',
+    height: '85vh',
     width: '100wh',
     margin: 0,
     backgroundImage: 'url("/img/burgerbg.png")',
