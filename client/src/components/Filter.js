@@ -88,7 +88,7 @@ class Filter extends Component {
   render() {
     const { classes } = this.props
     return (
-      <div>
+      <div style={{ padding: '2em' }}>
         <FormControl
           component="fieldset"
           onChange={this.handleChangeFilter}

@@ -59,7 +59,7 @@ class User extends Component {
           src={user.imageUrl}
           className={classNames(classes.avatar, classes.bigAvatar)}
         />
-        <Typography variant="subheading">
+        <Typography variant="subheading" gutterBottom>
           Ready to chow, {user.name}!
         </Typography>
         <Filter />
