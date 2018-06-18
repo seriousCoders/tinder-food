@@ -32,7 +32,8 @@ class RestaurantsMain extends Component {
       this.props.location,
       this.props.filter.filter,
       this.props.filter.price,
-      this.props.filter.radius
+      this.props.filter.radius,
+      this.props.filter.isOpen
     )
     this.props.loadDetails(restaurants)
   }
@@ -59,7 +60,7 @@ class RestaurantsMain extends Component {
     }
     return (
       <div>
-        {loading ? (
+        {loading && restaurants.length? (
           <BindKeyboardSwipeableViews
             enableMouseEvents
             resistance
@@ -82,8 +83,10 @@ class RestaurantsMain extends Component {
               />
             ))}
           </BindKeyboardSwipeableViews>
-        ) : (
+        ) : !loading ? (
           <LoadingCircle variant="indeterminate" />
+        ) : (
+          <div>No Restaurants with these filters</div>
         )}
       </div>
     )
