@@ -4,9 +4,14 @@
   "scripts": {
     "client": "cd client && npm start",
     "server": "nodemon server",
-    "start-dev": "NODE_ENV='development' concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "start-dev": "NODE_ENV='development' concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "start": "nodemon -r babel-register server",
+    "start:prod": "node build/server",
+    "build-server": "babel . --ignore node_modules,build --out-dir server/build",
+    "build": "concurrently \"cd client && npm run build\" \"npm run build-server\""
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.3",
     "body-parser": "^1.18.3",
     "connect-session-sequelize": "^5.2.1",

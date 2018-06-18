@@ -1,6 +1,7 @@
 const express = require('express')
 const volleyball = require('volleyball')
 const bodyParser = require('body-parser')
+const path = require('path')
 const passport = require('passport')
 const session = require('express-session')
 const db = require('./db/db')
@@ -33,6 +34,9 @@ app.use(
 )
 app.use(passport.initialize())
 app.use(passport.session())
+
+const staticFiles = express.static(path.join(__dirname, '../../client/build'))
+app.use(staticFiles)
 
 app.use('/auth', require('./auth'))
 app.use('/api', require('./api'))
