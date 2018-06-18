@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { addFavourite } from './restaurants'
+import loadRestaurants from '../components/LoadRestaurants'
 
 const GOT_NEARBY = 'GOT_NEARBY'
 const REMOVED_NEARBY = 'REMOVE_RESTAURANT'
@@ -9,6 +10,20 @@ const intialState = []
 
 export const gotNearby = nearby => ({ type: GOT_NEARBY, nearby })
 const poppedNearby = id => ({ type: POPPED_NEARBY, id })
+
+export const getNearbyRestaurants = () => async (dispatch, getState) => {
+  const { location, filter } = getState()
+  console.log('I"M HEREE LOADING RESTAURANTS')
+  const restaurants = await loadRestaurants(
+    location,
+    filter.filter,
+    filter.price,
+    filter.radius,
+    filter.isOpen
+  )
+  console.log('I"M LOADED?!?!?!')
+  dispatch(gotNearby(restaurants))
+}
 
 export const popNearbyLike = (restaurant, userId, like) => async dispatch => {
   try {

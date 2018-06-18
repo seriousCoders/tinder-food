@@ -55,9 +55,15 @@ const getDetails = async (businesses, func, time) => {
   }
 }
 
-export default async (location, filter, price, radius) => {
+export default async (location, filter, price, radius, isOpen) => {
   const delayedAxios = delay(axios.get.bind(axios))
-  const restaurants = await getRestaurants(location, filter, price, radius)
+  const restaurants = await getRestaurants(
+    location,
+    filter,
+    price,
+    radius,
+    isOpen
+  )
     .then(businesses => getDetails(businesses, delayedAxios, 1))
     .then(results => results)
   return restaurants
