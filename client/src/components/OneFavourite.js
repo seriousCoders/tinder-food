@@ -50,7 +50,7 @@ const OneFavourite = ({
         <Typography className={classes.heading}>{restaurant.name}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <Typography>{restaurant.address}</Typography>
+        <Typography>{restaurant.address.join(', ')}</Typography>
       </ExpansionPanelDetails>
       <Divider />
       <ExpansionPanelActions>

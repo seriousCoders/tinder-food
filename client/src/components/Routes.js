@@ -8,7 +8,6 @@ import TabBar from './TabBar'
 import User from './User'
 import Favourites from './Favourites'
 import RestaurantsMain from './RestaurantsMain'
-
 import { getFavourites } from '../store/restaurants'
 
 const styles = theme => ({
@@ -32,10 +31,7 @@ class Routes extends Component {
   }
 
   handleChangeIndex = index => {
-    this.setState({ value: index })
-    if (index === 1 && !this.props.loading) {
-      this.loadingRestaurants()
-    }
+    this.setState({ value: index + 1 })
   }
 
   render() {
@@ -46,7 +42,7 @@ class Routes extends Component {
         <SwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={this.state.value}
-          onChangeIndex={() => this.handleChangeIndex(this.state.value)}
+          onChangeIndex={this.handleChangeIndex}
         >
           <TabContainer dir={theme.direction}>
             <User />
