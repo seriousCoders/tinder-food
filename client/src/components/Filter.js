@@ -10,7 +10,7 @@ import {
 class Filter extends Component {
   state = {
     filter: [],
-    isOpen: 'false',
+    isOpen: '',
     price: ['1', '2', '3', '4'],
     radius: 1600
   }
@@ -23,6 +23,7 @@ class Filter extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
+    this.props.changeOpen(event.target.value)
   }
 
   handleChangePrice = event => {
@@ -41,8 +42,10 @@ class Filter extends Component {
     }
     if (!output.length) {
       output = ['1', '2', '3', '4']
+      priceModified = false
     }
     this.setState({ price: output, priceModified })
+    this.props.changePrice(output.join(','))
   }
 
   handleChangeFilter = event => {
@@ -56,6 +59,14 @@ class Filter extends Component {
       })
     }
     this.setState({ filter: output })
+    this.props.changeFilter(output.join(','))
+  }
+
+  handleChangeRadius = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+    this.props.changeRadius(event.target.value)
   }
 
   render() {
@@ -67,9 +78,6 @@ class Filter extends Component {
         <form>
           <fieldset onChange={this.handleChangeFilter}>
             <legend>FILTER</legend>
-            {/* <input name="filter" type="checkbox" value="" />
-            <label>No Filter</label>
-            <br /> */}
             <input name="filter" type="checkbox" value="pizza" />
             <label>Pizza</label>
             <br />
@@ -85,9 +93,6 @@ class Filter extends Component {
           </fieldset>
           <fieldset onChange={this.handleChangePrice}>
             <legend>PRICE</legend>
-            {/* <input name="price" type="checkbox" value="1,2,3,4" />
-            <label>No Filter</label>
-            <br /> */}
             <input name="price" type="checkbox" value="4" />
             <label>$$$$</label>
             <br />
@@ -103,8 +108,8 @@ class Filter extends Component {
           </fieldset>
           <label>OPEN NOW</label>
           <select name="isOpen" onChange={this.handleChange}>
-            <option value={false}>FALSE</option>
-            <option value={true}>TRUE</option>
+            <option value="">NO</option>
+            <option value={true}>YES</option>
           </select>
           <label>HOW FAR?</label>
           <input
@@ -113,7 +118,7 @@ class Filter extends Component {
             min="0"
             max="4000"
             value={this.state.radius}
-            onChange={this.handleChange}
+            onChange={this.handleChangeRadius}
           />
           <label>{this.state.radius} Meters</label>
         </form>
