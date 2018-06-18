@@ -12,8 +12,8 @@ const TabBar = ({ handleChange, value }) => {
       <Tabs
         value={value}
         onChange={handleChange}
-        indicatorColor="primary"
-        textColor="primary"
+        indicatorColor="secondary"
+        textColor="secondary"
         fullWidth
         centered
       >

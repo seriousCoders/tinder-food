@@ -18,7 +18,8 @@ const styles = theme => ({
     borderRadius: '25px'
   },
   cssRoot: {
-    backgroundColor: 'red'
+    backgroundColor: 'rgb(198, 35, 65)',
+    color: 'white'
   },
   column: {
     display: 'flex',

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 
 import OneFavourite from './OneFavourite'
 import { removeFavourite } from '../store/restaurants'
@@ -42,16 +43,24 @@ class Favourites extends Component {
 
     return (
       <div className={classes.root}>
-        {favourites.map(restaurant => (
-          <OneFavourite
-            handleChange={this.handleChange}
-            handleDelete={this.handleDelete}
-            expanded={expanded}
-            panel={`panel${restaurant.id}`}
-            key={restaurant.id}
-            restaurant={restaurant}
-          />
-        ))}
+        {favourites.length ? (
+          <div>
+            {favourites.map(restaurant => (
+              <OneFavourite
+                handleChange={this.handleChange}
+                handleDelete={this.handleDelete}
+                expanded={expanded}
+                panel={`panel${restaurant.id}`}
+                key={restaurant.id}
+                restaurant={restaurant}
+              />
+            ))}
+          </div>
+        ) : (
+          <Typography variant="subheading">
+            You have no saved restaurants.
+          </Typography>
+        )}
       </div>
     )
   }

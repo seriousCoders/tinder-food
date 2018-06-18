@@ -11,9 +11,8 @@ import { withStyles } from '@material-ui/core/styles'
 import LoadingCircle from './LoadingCircle'
 const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews)
 
-const styles = theme => ({
+const styles = () => ({
   grid: {
-    // background: 'linear-gradient(180deg, #fe6b8b 30%, #ff8e53 90%)',
     height: '100vh',
     width: '100wh',
     margin: 0,
@@ -76,7 +75,7 @@ class RestaurantsMain extends Component {
                 ))}
               </BindKeyboardSwipeableViews>
             ) : (
-              <Typography variant="headline">
+              <Typography variant="subheading">
                 Uh oh... there doesn't seem to be anymore restaurants that fit
                 your preferences.
               </Typography>
