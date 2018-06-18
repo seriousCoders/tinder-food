@@ -22,7 +22,7 @@ export const logout = () => dispatch =>
   axios
     .post('/auth/logout')
     .then(_ => {
-      dispatch(removeUser())
+      return dispatch(removeUser())
     })
     .catch(err => console.log(err))
 
@@ -30,7 +30,7 @@ export const deleteUser = id => dispatch =>
   axios
     .delete(`/api/user/${id}`)
     .then(_ => {
-      dispatch(removeUser())
+      return dispatch(removeUser())
     })
     .catch(err => console.log(err))
 

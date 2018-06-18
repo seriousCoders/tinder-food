@@ -25,7 +25,7 @@ const getDetails = async (businesses, func, time) => {
   if (businesses[0]) {
     const output = []
     let i = 0
-    while (i < 10) {
+    while (i < businesses.length / 2) {
       const rest = await func(time, `/api/yelp/${businesses[i].id}`)
       i++
       const {
