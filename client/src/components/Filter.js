@@ -15,10 +15,6 @@ class Filter extends Component {
     radius: 1600
   }
 
-  // static getDerivedStateFromProps(props) {
-  //   return { ...props.filter }
-  // }
-
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -70,9 +66,6 @@ class Filter extends Component {
   }
 
   render() {
-    // const isOpen = this.state.isOpen ? 'TRUE' : 'FALSE'
-    // const open = this.state.isOpen ? 'FALSE' : 'TRUE'
-    console.log('state', this.state)
     return (
       <div>
         <form>
