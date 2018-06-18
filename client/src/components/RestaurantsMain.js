@@ -28,7 +28,8 @@ class RestaurantsMain extends Component {
       this.props.location,
       this.props.filter.filter,
       this.props.filter.price,
-      this.props.filter.radius
+      this.props.filter.radius,
+      this.props.filter.isOpen
     )
     this.props.loadDetails(restaurants)
   }

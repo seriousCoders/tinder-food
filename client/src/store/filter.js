@@ -3,6 +3,7 @@
 const CHANGED_FILTER = 'CHANGED_FILTER'
 const CHANGED_PRICE = 'CHANGED_PRICE'
 const CHANGED_RADIUS = 'CHANGED_RADIUS'
+const CHANGED_OPEN = 'CHANGED_OPEN'
 
 // ACTION CREATORS
 
@@ -20,6 +21,11 @@ export const changedRadius = radius => ({
   type: CHANGED_RADIUS,
   radius
 })
+
+export const changeOpen = isOpen => ({
+  type: CHANGED_OPEN,
+  isOpen: !!isOpen
+})
 // THUNK
 
 export const changeFilter = filter => dispatch => {
@@ -29,7 +35,8 @@ export const changeFilter = filter => dispatch => {
 const initialState = {
   filter: '',
   price: '',
-  radius: 1600
+  radius: 1600,
+  isOpen: false
 }
 
 export default function(state = initialState, action) {
@@ -40,6 +47,8 @@ export default function(state = initialState, action) {
       return { ...state, price: action.price }
     case CHANGED_RADIUS:
       return { ...state, radius: action.radius }
+    case CHANGED_OPEN:
+      return { ...state, isOpen: action.isOpen }
     default:
       return state
   }

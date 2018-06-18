@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { changeFilter, changedPrice } from '../store/filter'
+import {
+  changeFilter,
+  changedPrice,
+  changedRadius,
+  changeOpen
+} from '../store/filter'
 
 class Filter extends Component {
   handleChange = event => {
@@ -11,9 +16,19 @@ class Filter extends Component {
     this.props.changePrice(event.target.value)
   }
 
+  handleChangeOpen = event => {
+    this.props.changeOpen(event.target.value)
+  }
+
+  handleChangeRadius = event => {
+    this.props.changeRadius(event.target.value)
+  }
+
   render() {
+    const isOpen = this.props.isOpen ? 'TRUE' : 'FALSE'
     return (
       <div>
+        <label>FILTER</label>
         <select onChange={this.handleChange}>
           <option value="">No Filter</option>
           <option value="pizza">Pizza</option>
@@ -21,6 +36,7 @@ class Filter extends Component {
           <option value="mexican">Mexican</option>
           <option value="chinese">Chinese</option>
         </select>
+        <label>PRICE</label>
         <select onChange={this.handleChangePrice}>
           <option value="">No Filter</option>
           <option value="4">$$$$</option>
@@ -28,6 +44,13 @@ class Filter extends Component {
           <option value="2">$$</option>
           <option value="1">$</option>
         </select>
+        <label>OPEN NOW</label>
+        <select onChange={this.handleChangeOpen}>
+          <option value={this.props.isOpen}>{isOpen}</option>
+          <option value={!this.props.isOpen}>{isOpen}</option>
+        </select>
+        <label>HOW FAR?</label>
+        <input value={this.props.radius} onChange={this.handleChangeRadius} />
       </div>
     )
   }
@@ -35,10 +58,17 @@ class Filter extends Component {
 
 const mapDispatchToProps = dispatch => ({
   changeFilter: filter => dispatch(changeFilter(filter)),
-  changePrice: price => dispatch(changedPrice(price))
+  changePrice: price => dispatch(changedPrice(price)),
+  changeOpen: isOpen => dispatch(changeOpen(isOpen)),
+  changeRadius: radius => dispatch(changedRadius(radius))
+})
+
+const mapStateToProps = state => ({
+  radius: state.filter.radius,
+  isOpen: state.filter.isOpen
 })
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Filter)
