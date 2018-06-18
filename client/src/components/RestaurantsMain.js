@@ -60,7 +60,7 @@ class RestaurantsMain extends Component {
     }
     return (
       <div>
-        {loading && restaurants.length? (
+        {loading && restaurants.length ? (
           <BindKeyboardSwipeableViews
             enableMouseEvents
             resistance
