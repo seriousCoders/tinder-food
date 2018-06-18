@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SwipeableViews from 'react-swipeable-views'
 import { bindKeyboard } from 'react-swipeable-views-utils'
-import OneRestaurant from './OneRestaurant'
-import { popNearbyLike, gotNearby } from '../store/nearby'
 
 import { detailedRestaurants } from './DummyData'
+import OneRestaurant from './OneRestaurant'
+import { popNearbyLike, gotNearby } from '../store/nearby'
 import LoadingCircle from './LoadingCircle'
 import getRestaurants from './LoadRestaurants'
 import { loadData } from '../store/loading'
@@ -30,10 +30,7 @@ class RestaurantsMain extends Component {
   loadingRestaurants = async () => {
     const restaurants = await this.props.loadFromLocation(
       this.props.location,
-      this.props.filter.filter,
-      this.props.filter.price,
-      this.props.filter.radius,
-      this.props.filter.isOpen
+      this.props.filter
     )
     this.props.loadDetails(restaurants)
   }
@@ -45,48 +42,42 @@ class RestaurantsMain extends Component {
     this.props.seen(restaurant, this.props.userId, false)
   }
 
-  handleChangeIndex = (index, indexLatest, restaurant) => {
-    if (index > indexLatest) {
-      this.handleDislike(restaurant)
-    } else {
-      this.handleLike(restaurant)
-    }
+  handleChangeIndex = (index, indexLatest) => {
+    // console.log('INDEX', index)
+    // console.log('indexlatest', indexLatest)
+    this.setState({ value: index })
   }
 
   render() {
-    const { restaurants, loading } = this.state
-    if (!loading) {
-      this.loadingRestaurants()
-    }
+    // let { restaurants, loading } = this.state
+    // if (!loading) {
+    //   this.loadingRestaurants()
+    // }
+    const { value, position } = this.state
+    const loading = true
+    const inputRange = detailedRestaurants.map((_, i) => i)
     return (
       <div>
-        {loading && restaurants.length? (
+        {loading ? (
           <BindKeyboardSwipeableViews
             enableMouseEvents
             resistance
-            onChangeIndex={(index, indexLatest) =>
-              this.handleChangeIndex(
-                index,
-                indexLatest,
-                restaurants[this.state.value]
-              )
-            }
-            index={this.state.value}
-            // axis="x-reverse"
+            onChangeIndex={this.handleChangeIndex}
+            index={value}
+            axis="x-reverse"
           >
-            {restaurants.map(restaurant => (
-              <OneRestaurant
-                key={restaurant.yelpId}
-                handleLike={this.handleLike}
-                handleDislike={this.handleDislike}
-                restaurant={restaurant}
-              />
-            ))}
+            {detailedRestaurants.map((restaurant, currIdx) => {
+              return (
+                <OneRestaurant
+                  handleLike={this.handleLike}
+                  handleDislike={this.handleDislike}
+                  restaurant={restaurant}
+                />
+              )
+            })}
           </BindKeyboardSwipeableViews>
-        ) : !loading ? (
-          <LoadingCircle variant="indeterminate" />
         ) : (
-          <div>No Restaurants with these filters</div>
+          <LoadingCircle variant="indeterminate" />
         )}
       </div>
     )
@@ -104,8 +95,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   seen: (restaurant, userId, like) =>
     dispatch(popNearbyLike(restaurant, userId, like)),
-  loadFromLocation: (location, filter, price, radius) =>
-    getRestaurants(location, filter, price, radius),
+  loadFromLocation: (location, filter) => getRestaurants(location, filter),
   loadDetails: restaurants => {
     dispatch(gotNearby(restaurants))
     dispatch(loadData())
