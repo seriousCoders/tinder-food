@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SwipeableViews from 'react-swipeable-views'
+import { bindKeyboard } from 'react-swipeable-views-utils'
 import OneRestaurant from './OneRestaurant'
 import { popNearbyLike, gotNearby } from '../store/nearby'
 
@@ -9,10 +10,13 @@ import LoadingCircle from './LoadingCircle'
 import getRestaurants from './LoadRestaurants'
 import { loadData } from '../store/loading'
 
+const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews)
+
 class RestaurantsMain extends Component {
   state = {
     restaurants: [],
-    loading: false
+    loading: false,
+    value: 0
   }
 
   static getDerivedStateFromProps(props) {
@@ -45,7 +49,13 @@ class RestaurantsMain extends Component {
     return (
       <div>
         {loading ? (
-          <div>
+          <BindKeyboardSwipeableViews
+            enableMouseEvents
+            resistance
+            onChangeIndex={this.handleChangeIndex}
+            index={this.state.value}
+            axis="x-reverse"
+          >
             {restaurants.map(restaurant => (
               <OneRestaurant
                 key={restaurant.yelpId}
@@ -54,7 +64,7 @@ class RestaurantsMain extends Component {
                 restaurant={restaurant}
               />
             ))}
-          </div>
+          </BindKeyboardSwipeableViews>
         ) : (
           <LoadingCircle variant="indeterminate" />
         )}

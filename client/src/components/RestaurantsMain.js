@@ -11,14 +11,12 @@ import getRestaurants from './LoadRestaurants'
 import { loadData } from '../store/loading'
 
 const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews)
-detailedRestaurants.unshift('test')
-detailedRestaurants.push('end')
 
 class RestaurantsMain extends Component {
   state = {
     restaurants: [],
     loading: false,
-    value: 1
+    value: 0
   }
 
   static getDerivedStateFromProps(props) {
@@ -43,18 +41,21 @@ class RestaurantsMain extends Component {
   handleDislike = restaurant => {
     this.props.seen(restaurant, this.props.userId, false)
   }
+
   handleChangeIndex = (index, indexLatest) => {
     // console.log('INDEX', index)
     // console.log('indexlatest', indexLatest)
-    this.setState({ value: indexLatest + 1 })
+    this.setState({ value: index })
   }
+
   render() {
     // let { restaurants, loading } = this.state
     // if (!loading) {
     //   this.loadingRestaurants()
     // }
+    const { value, position } = this.state
     const loading = true
-    console.log(detailedRestaurants)
+    const inputRange = detailedRestaurants.map((_, i) => i)
     return (
       <div>
         {loading ? (
@@ -62,21 +63,17 @@ class RestaurantsMain extends Component {
             enableMouseEvents
             resistance
             onChangeIndex={this.handleChangeIndex}
-            index={this.state.value}
+            index={value}
             axis="x-reverse"
           >
-            {detailedRestaurants.map((restaurant, index) => {
-              if (index === 0 || index === detailedRestaurants.length - 1)
-                return <div>restaurant</div>
-              else
-                return (
-                  <OneRestaurant
-                    key={restaurant.yelpId}
-                    handleLike={this.handleLike}
-                    handleDislike={this.handleDislike}
-                    restaurant={restaurant}
-                  />
-                )
+            {detailedRestaurants.map((restaurant, currIdx) => {
+              return (
+                <OneRestaurant
+                  handleLike={this.handleLike}
+                  handleDislike={this.handleDislike}
+                  restaurant={restaurant}
+                />
+              )
             })}
           </BindKeyboardSwipeableViews>
         ) : (
