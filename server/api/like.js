@@ -4,8 +4,12 @@ const { Like } = require('../db/models')
 module.exports = router
 
 router.post(`/`, async (req, res, next) => {
-  await Like.create(req.body)
-  res.sendStatus(200)
+  try {
+    await Like.create(req.body)
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
 })
 
 router.delete('/', async (req, res, next) => {
