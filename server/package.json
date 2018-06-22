@@ -1,0 +1,41 @@
+{
+  "name": "city-chow-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon index.js",
+    "build": "babel . --ignore node_modules,build --out-dir build",
+    "start:prod": "node build/index.js",
+    "start": "nodemon -r babel-register index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/preset-stage-2": "^7.0.0-beta.51",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.3",
+    "body-parser": "^1.18.3",
+    "connect-session-sequelize": "^5.2.1",
+    "cors": "^2.8.4",
+    "eslint-config-fullstack": "^5.0.0",
+    "eslint-plugin-react": "^7.9.1",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "react-redux": "^5.0.7",
+    "react-swipeable-views": "^0.12.13",
+    "sequelize": "^4.37.10"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "volleyball": "^1.5.1",
+    "yelp-fusion": "^2.0.3"
+  }
+}
